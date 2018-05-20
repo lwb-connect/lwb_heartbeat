@@ -20,24 +20,24 @@
       <ul>
         <li><a href="{% url "home" %}">Home</a></li>
         <li><a href="{% url "profile" %}">Profile</a></li>
-        {% if user.is_superuser %}
+        {% comment %} {% if user.is_superuser %} {% endcomment %}
         <li><a href="{% url "admin:index" %}">Admin</a></li>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
         <li><a href="{% url "auth_logout" %}">Logout</a></li>
-        {% else %}
+        {% comment %} {% else %} {% endcomment %}
         <li><a href="{% url "registration_register" %}">SignUp</a></li>
         <li><a href="{% url "auth_login" %}">Signin</a></li>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
       </ul>
     </nav>
-    {% if user.is_authenticated %}
+    {% comment %} {% if user.is_authenticated %}
     <h3>Welcome, {{user.username}}</h3>
-    {% endif %}
+    {% endif %} {% endcomment %}
   </header>
 
   <main>
     {% block content %}
-    <h3>No Content</h3>
+    <h3>Hello World</h3>
     {% endblock content%}
   </main>
 
