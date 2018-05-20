@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="/lwb_heartbeat/lwb_heartbeat/static/normalize.css">
+ 
+
+  <title>Love Without Boundaries</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "profile" %}">Profile</a></li>
+        {% if user.is_superuser %}
+        <li><a href="{% url "admin:index" %}">Admin</a></li>
+        {% endif %}
+        <li><a href="{% url "auth_logout" %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url "registration_register" %}">SignUp</a></li>
+        <li><a href="{% url "auth_login" %}">Signin</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% if user.is_authenticated %}
+    <h3>Welcome, {{user.username}}</h3>
+    {% endif %}
+  </header>
+
+  <main>
+    {% block content %}
+    <h3>No Content</h3>
+    {% endblock content%}
+  </main>
+
+  <footer>
+  </footer>
+</body>
+</html>
