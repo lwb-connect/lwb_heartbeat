@@ -18,15 +18,15 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url "home" %}">Home</a></li>
-        <li><a href="{% url "profile" %}">Profile</a></li>
+        {% comment %} <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "profile" %}">Profile</a></li> {% endcomment %}
         {% comment %} {% if user.is_superuser %} {% endcomment %}
-        <li><a href="{% url "admin:index" %}">Admin</a></li>
+        {% comment %} <li><a href="{% url "admin:index" %}">Admin</a></li> {% endcomment %}
         {% comment %} {% endif %} {% endcomment %}
-        <li><a href="{% url "auth_logout" %}">Logout</a></li>
+        {% comment %} <li><a href="{% url "auth_logout" %}">Logout</a></li> {% endcomment %}
         {% comment %} {% else %} {% endcomment %}
-        <li><a href="{% url "registration_register" %}">SignUp</a></li>
-        <li><a href="{% url "auth_login" %}">Signin</a></li>
+        {% comment %} <li><a href="{% url "registration_register" %}">SignUp</a></li>
+        <li><a href="{% url "auth_login" %}">Signin</a></li> {% endcomment %}
         {% comment %} {% endif %} {% endcomment %}
       </ul>
     </nav>
