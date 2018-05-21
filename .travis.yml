@@ -6,7 +6,10 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "create database $DB_NAME;" -U postgres
+  - psql -c "create database heartbeat_test;" -U postgres
+
+env:
+  - DB_NAME=heartbeat_test DB_USER=postgres DB_HOST='127.0.0.1' SECRET_KEY='supersecret' DEBUG='True'
 
 
 script:
