@@ -1,4 +1,4 @@
-# django-imager
+# lwb_heartbeat
 **Authors** : Patricia Raftery, Keith Eckert and Jay Adams
 **Version**: 0.1.0
 [![Coverage Status](https://coveralls.io/repos/github/lwb-connect/lwb_heartbeat/badge.svg?branch=development)](https://coveralls.io/github/lwb-connect/lwb_heartbeat?branch=development)
