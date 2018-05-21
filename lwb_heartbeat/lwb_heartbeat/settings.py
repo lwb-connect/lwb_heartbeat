@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get('DEBUG', False))
-DEDUB = True
+DEDUB = os.environ.get('DEBUG', None)
 
 # ALLOWED_HOSTS = ['.amazonaws.com']if not DEBUG else []
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split()
@@ -98,7 +98,7 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST', ''),
         'PORT': '5432',
         'TEST': {
-            'NAME': 'lwb_db'
+            'NAME': os.environ.get('DB_NAME', '')
         }
     }
 }
