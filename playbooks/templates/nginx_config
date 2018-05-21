@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name {{ server_dns }};
+    access_log /var/log/nginx/{{ project_name }}.log;
+
+    location /static/ {
+        root /home/ubuntu/{{ project_name }};
+    }
+    location /media/ {
+        alias /home/ubuntu/{{ project_name }}/MEDIA/;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded_for $proxy_add_x_forwarded_for;
+    }
+}
