@@ -17,7 +17,7 @@
 *  Project-specific env variables
 * `export SECRET_KEY='secret key'`
 * `export DEBUG=True`
-* `export DB_NAME='heartbeat'`
+* `export DB_NAME=''`
 * `export DB_USER=''` set these two if need for linux
 * `export DB_PASSWORD=''`
 * `export DB_HOST='localhost'` 
