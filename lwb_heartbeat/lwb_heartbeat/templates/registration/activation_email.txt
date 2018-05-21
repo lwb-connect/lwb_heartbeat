@@ -1,0 +1,2 @@
+Activate your Love Without Boundaries account within 24 hours.
+http://{{site}}{% url 'registration_activate' activation_key=activation_key %}
