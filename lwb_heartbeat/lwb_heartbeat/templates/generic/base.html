@@ -18,27 +18,27 @@
   <header>
     <nav>
       <ul>
-        {% comment %} <li><a href="{% url "home" %}">Home</a></li>
-        <li><a href="{% url "profile" %}">Profile</a></li> {% endcomment %}
-        {% comment %} {% if user.is_superuser %} {% endcomment %}
-        {% comment %} <li><a href="{% url "admin:index" %}">Admin</a></li> {% endcomment %}
-        {% comment %} {% endif %} {% endcomment %}
-        {% comment %} <li><a href="{% url "auth_logout" %}">Logout</a></li> {% endcomment %}
+        <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "auth_login" %}">Signin</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url "auth_logout" %}">Logout</a></li>
+        {% endif %}
+        {% if user.is_superuser %}
+        <li><a href="{% url "admin:index" %}">Admin</a></li>
+        {% endif %}
         {% comment %} {% else %} {% endcomment %}
         {% comment %} <li><a href="{% url "registration_register" %}">SignUp</a></li>
         <li><a href="{% url "auth_login" %}">Signin</a></li> {% endcomment %}
         {% comment %} {% endif %} {% endcomment %}
       </ul>
     </nav>
-    {% comment %} {% if user.is_authenticated %}
-    <h3>Welcome, {{user.username}}</h3>
-    {% endif %} {% endcomment %}
+        {% if user.is_authenticated %}
+        <h3>Welcome, {{user.username}}</h3>
+        {% endif %}
   </header>
 
   <main>
-    {% block content %}
-    <h3>Hello World</h3>
-    {% endblock content%}
+        
   </main>
 
   <footer>
