@@ -30,8 +30,7 @@
     - name: Clone the repo
       git:
         clone: yes
-        repo: https://github.com/lwb-connect/lwb_heartbeat
-        # repo: https://github.com/Patricia888/django-imager.git
+        repo: https://github.com/lwb-connect/lwb_heartbeat.git
         dest: /home/ubuntu/heartbeat
 
     - name: Create a virtual env for the project to run in
@@ -75,13 +74,20 @@
       become_method: sudo
 
     # migrate
+    # Don't forget to collectstatic and migrate if necessary
     - name: Migrate the database
       django_manage:
         command: migrate
         app_path: /home/ubuntu/heartbeat/lwb_heartbeat
         virtualenv: /home/ubuntu/ENV
-      # Don't forget to start/restart your services
 
+    - name: Collect static
+      django_manage:
+        command: collectstatic
+        app_path: /home/ubuntu/heartbeat/lwb_heartbeat
+        virtualenv: /home/ubuntu/ENV
+
+    # Don't forget to start/restart your services
     - name: Enable Nginx
       command: systemctl enable nginx
       become: yes
@@ -111,11 +117,3 @@
       command: systemctl start gunicorn
       become: yes
       become_method: sudo
-
-# Don't forget to collectstatic and migrate if necessary
-
-    - name: Collect static
-      django_manage:
-        command: collectstatic
-        app_path: /home/ubuntu/heartbeat/lwb_heartbeat
-        virtualenv: /home/ubuntu/ENV
