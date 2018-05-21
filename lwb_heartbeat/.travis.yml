@@ -1,0 +1,23 @@
+language: python
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "create database $DB_NAME;" -U postgres
+
+
+script:
+  - python lwb_heartbeat/manage.py migrate
+  - python lwb_heartbeat/manage.py test heartbeat
+  
+
+after_success:
+  - pip install coveralls
+  - coverage run lwb_heartbeat/manage.py test heartbeat
+  - coveralls
+  
+
+cache: pip
