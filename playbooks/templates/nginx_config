@@ -4,10 +4,10 @@ server {
     access_log /var/log/nginx/{{ project_name }}.log;
 
     location /static/ {
-        root /home/ubuntu/{{ project_name }};
+        root /home/ubuntu/heartbeat/lwb_heartbeat;
     }
     location /media/ {
-        alias /home/ubuntu/{{ project_name }}/MEDIA/;
+        alias /home/ubuntu/heartbeat/lwb_heartbeat/MEDIA/;
     }
 
     location / {
