@@ -24,10 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
     path('accounts/', include('registration.backends.hmac.urls')),
+    path('users/', include('users.urls')),
 ]
 
 
 # use if our static images stop loading to the view:
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
