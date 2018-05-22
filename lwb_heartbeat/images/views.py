@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormView
-from imager_images.models import Photo
+from images.models import Photo
 # from imager_profile.models import ImagerProfile
 from .forms import PhotoForm, PhotoEditForm
 from django.conf import settings
@@ -52,4 +52,31 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class PhotoEditView(LoginRequiredMixin, UpdateView):
+    """Lets agents edit existing photo information."""
+    # DO
+    template_name = ""
+    model = Photo
+    form_class = PhotoEditForm
+    login_url = reverse_lazy('auth_login')
+    success_url = reverse_lazy('photo')
+    slug_url_kwarg = 'photo_id'
+    slug_field = 'id'
+
+    # DO
+    # reference child, not user
+    def get(self, *args, **kwargs):
+        self.kwargs['username'] = self.request.user.get_username()
+        return super().get(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        self.kwargs['username'] = self.request.user.get_username()
+        return super().post(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.title = form.data['title']
+        form.instance.save()
         return super().form_valid(form)
