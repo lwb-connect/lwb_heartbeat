@@ -5,9 +5,11 @@ from django.dispatch import receiver
 from multiselectfield import MultiSelectField
 from django.db.models.signals import post_save
 
+
 class StaffProfile(models.Model):
     """
     This model defines both staff and volunteer users.
+
     This does not define children in the program
     """
 
