@@ -26,7 +26,7 @@ class StaffProfile(models.Model):
         max_length=120,
         blank=True,
         null=True)
-    city_of_residience = models.CharField(
+    city_of_residence = models.CharField(
         max_length=120,
         blank=True,
         null=True)
