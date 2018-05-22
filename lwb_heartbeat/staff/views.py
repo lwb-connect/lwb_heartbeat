@@ -7,4 +7,6 @@ from django.views.generic import DetailView, UpdateView
 
 
 class StaffView(LoginRequiredMixin, DetailView):
+    """Class for staff view."""
+
     pass
