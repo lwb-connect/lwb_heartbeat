@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     path('accounts/', include('registration.backends.hmac.urls')),
-    path('users/', include('users.urls')),
+    path('staff/', include('staff.urls')),
     path('images/', include('images.urls')),
     path('child/', include('child.urls')),
 ]
