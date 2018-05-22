@@ -49,11 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'lwb_heartbeat',
     'staff',
     'child',
     'images',
     'sorl.thumbnail',
-    'lwb_heartbeat',
     'multiselectfield',
 ]
 
