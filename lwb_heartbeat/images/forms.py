@@ -9,7 +9,7 @@ class PhotoForm(ModelForm):
     """Lets the agent add photos"""
     class Meta:
         model = Photo
-        fields = ['image', 'title', 'description']
+        fields = ['image', 'description']
 
     def __init__(self, *args, **kwargs):
         username = kwargs.pop('username')
@@ -23,7 +23,7 @@ class PhotoEditForm(ModelForm):
     """Lets the agent edit photo information."""
     class Meta:
         model = Photo
-        fields = ['image', 'title', 'description']
+        fields = ['image', 'description']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
