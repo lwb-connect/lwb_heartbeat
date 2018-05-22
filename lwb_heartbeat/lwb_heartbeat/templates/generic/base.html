@@ -22,14 +22,12 @@
         <li><a href="{% url "auth_login" %}">Signin</a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url "auth_logout" %}">Logout</a></li>
+        <li><a href="{% url "photo" %}">Photos</a></li>
         {% endif %}
         {% if user.is_superuser %}
         <li><a href="{% url "admin:index" %}">Admin</a></li>
         {% endif %}
-        {% comment %} {% else %} {% endcomment %}
-        {% comment %} <li><a href="{% url "registration_register" %}">SignUp</a></li>
-        <li><a href="{% url "auth_login" %}">Signin</a></li> {% endcomment %}
-        {% comment %} {% endif %} {% endcomment %}
+        
       </ul>
     </nav>
         {% if user.is_authenticated %}

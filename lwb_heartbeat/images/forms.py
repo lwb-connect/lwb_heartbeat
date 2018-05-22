@@ -2,8 +2,11 @@ from django.forms import ModelForm
 from .models import Photo
 
 
+# DO
+# Filter by child, not username
+
 class PhotoForm(ModelForm):
-    """Lets the user add photos"""
+    """Lets the agent add photos"""
     class Meta:
         model = Photo
         fields = ['image', 'title', 'description']
@@ -14,3 +17,17 @@ class PhotoForm(ModelForm):
 
         self.fields['image'].queryset = Photo.objects.filter(
                                         user__username=username)
+
+
+class PhotoEditForm(ModelForm):
+    """Lets the agent edit photo information."""
+    class Meta:
+        model = Photo
+        fields = ['image', 'title', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        username = kwargs.pop('username')
+
+        self.fields['image'].queryset = Photo.objects.filter(
+                                        album__user__username=username)
