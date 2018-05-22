@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormView
 from images.models import Photo
 # from imager_profile.models import ImagerProfile
-# from .forms import PhotoForm, PhotoEditForm
+from .forms import PhotoForm, PhotoEditForm
 from django.conf import settings
 
 

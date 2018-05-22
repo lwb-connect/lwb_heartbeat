@@ -1,13 +1,14 @@
-from django.contrib.auth.models import User 
+"""Imports."""
+from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from multiselectfield import MultiSelectField
 
 
 class UserProfile(models.Model):
-    """
-    This model defines both staff and volunteer users.
-    This does not define children in the program
+    """This model defines both staff and volunteer users.
+
+    This does not define children in the program.
     """
 
     user = models.OneToOneField(
@@ -43,16 +44,16 @@ class UserProfile(models.Model):
         blank=True, 
         null=True)
     user_language_spoken_other = models.CharField(
-        max_length=120, 
-        blank=True, 
+        max_length=120,
+        blank=True,
         null=True)
     user_language_written = models.CharField(
-        max_length=120, 
-        blank=True, 
+        max_length=120,
+        blank=True,
         null=True)
     user_language_written_other = models.CharField(
-        max_length=120, 
-        blank=True, 
+        max_length=120,
+        blank=True,
         null=True)
   
     role = MultiSelectField(
@@ -88,8 +89,9 @@ class UserProfile(models.Model):
 
     @classmethod
     def active(cls):
+        """Class method."""
         return cls.objects.filter(is_active=True)
 
     def __str__(self):
+        """Class String magic."""
         return self.user.username
-
