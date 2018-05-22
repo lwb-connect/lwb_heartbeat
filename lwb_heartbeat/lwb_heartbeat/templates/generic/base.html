@@ -30,12 +30,15 @@
         
       </ul>
     </nav>
-        {% if user.is_authenticated %}
-        <h3>Welcome, {{user.username}}</h3>
-        {% endif %}
+    {% if user.is_authenticated %}
+    <h3>Welcome, {{user.username}}</h3>
+    {% endif %}
   </header>
 
   <main>
+        {% block content %}
+        <h3>No Content</h3>
+        {% endblock content%}
         
   </main>
 
