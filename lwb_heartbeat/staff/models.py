@@ -15,7 +15,7 @@ class StaffProfile(models.Model):
 
     user = models.OneToOneField(
         User,
-        related_name='user_profile',
+        related_name='profile',
         on_delete=models.CASCADE
     )
     about_you = models.TextField(

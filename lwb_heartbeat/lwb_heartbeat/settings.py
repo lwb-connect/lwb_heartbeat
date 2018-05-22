@@ -50,11 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lwb_heartbeat',
+    'sorl.thumbnail',
+    'multiselectfield',
     'staff',
     'child',
     'images',
-    'sorl.thumbnail',
-    'multiselectfield',
 ]
 
 MIDDLEWARE = [
