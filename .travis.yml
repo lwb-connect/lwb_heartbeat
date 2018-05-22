@@ -14,12 +14,12 @@ env:
 
 script:
   - python lwb_heartbeat/manage.py migrate
-  - python lwb_heartbeat/manage.py test heartbeat
+  - python lwb_heartbeat/manage.py test lwb_heartbeat
   
 
 after_success:
   - pip install coveralls
-  - coverage run lwb_heartbeat/manage.py test heartbeat
+  - coverage run lwb_heartbeat/manage.py test lwb_heartbeat
   - coveralls
   
 
