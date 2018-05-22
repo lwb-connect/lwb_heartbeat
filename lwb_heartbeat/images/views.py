@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormView
-from imager_images.models import Photo
+from images.models import Photo
 # from imager_profile.models import ImagerProfile
-from .forms import PhotoForm, PhotoEditForm
+# from .forms import PhotoForm, PhotoEditForm
 from django.conf import settings
 
 
@@ -37,7 +37,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
     # DO
     template_name = ''
     login_url = reverse_lazy('auth_login')
-    form_class = PhotoForm
+    # form_class = PhotoForm
     # DO
     # change
     success_url = reverse_lazy('library')
