@@ -15,7 +15,7 @@ class StaffProfile(models.Model):
 
     user = models.OneToOneField(
         User,
-        related_name='user_profile',
+        related_name='profile',
         on_delete=models.CASCADE
     )
     about_you = models.TextField(
@@ -26,7 +26,7 @@ class StaffProfile(models.Model):
         max_length=120,
         blank=True,
         null=True)
-    city_of_residience = models.CharField(
+    city_of_residence = models.CharField(
         max_length=120,
         blank=True,
         null=True)
