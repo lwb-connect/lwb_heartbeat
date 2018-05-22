@@ -20,11 +20,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
     path('accounts/', include('registration.backends.hmac.urls')),
     path('users/', include('users.urls')),
     path('images/', include('images.urls')),
