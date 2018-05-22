@@ -6,7 +6,5 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 
 
-class UserView(LoginRequiredMixin, DetailView):
-    """User view class."""
-
+class StaffView(LoginRequiredMixin, DetailView):
     pass

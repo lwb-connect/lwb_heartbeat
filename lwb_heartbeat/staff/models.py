@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from multiselectfield import MultiSelectField
+from django.db.models.signals import post_save
 
-
-class UserProfile(models.Model):
-    """This model defines both staff and volunteer users.
-
-    This does not define children in the program.
+class StaffProfile(models.Model):
+    """
+    This model defines both staff and volunteer users.
+    This does not define children in the program
     """
 
     user = models.OneToOneField(
@@ -95,3 +95,8 @@ class UserProfile(models.Model):
     def __str__(self):
         """Class String magic."""
         return self.user.username
+
+
+@receiver(post_save, sender=User)
+def staff_profile_hook(sender, **kwargs):
+    pass

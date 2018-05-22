@@ -9,7 +9,11 @@ class Photo(models.Model):
     Creates Photo model that uses one way connection to Album to join both
     tables to build assocation stream.
     """
-    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='photos')
+    child = models.ForeignKey(
+        Child, 
+        on_delete=models.CASCADE, 
+        related_name='photos'
+        )
     image = ImageField(upload_to='images')
     location = models.CharField(max_length=250, default='none', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
