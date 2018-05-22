@@ -5,5 +5,7 @@ from .views import (
 
 
 urlpatterns = [
-    path('childs/<int:pk>', ChildDetailView.as_view(), name='child_detail'),
-    path('childs/add', ChildCreateView.as_view(), name='child_create'),
+    path('child/<int:pk>', ChildDetailView.as_view(), name='child_detail'),
+    path('child/add', ChildCreateView.as_view(), name='child_create'),
+    ] 
+     

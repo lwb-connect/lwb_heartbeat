@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'child',
+    'images',
     'sorl.thumbnail',
     'lwb_heartbeat',
     'multiselectfield',

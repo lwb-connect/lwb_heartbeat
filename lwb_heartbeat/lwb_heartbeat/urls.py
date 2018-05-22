@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from .views import home_view
 from django.urls import path, include
+from django.conf import settings
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -26,6 +27,8 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('accounts/', include('registration.backends.hmac.urls')),
     path('users/', include('users.urls')),
+    path('images/', include('images.urls')),
+    path('child/', include('child.urls')),
 ]
 
 
