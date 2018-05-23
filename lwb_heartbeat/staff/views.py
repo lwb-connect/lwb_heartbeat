@@ -29,7 +29,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         """Get context data for profiles."""
         context = super().get_context_data(**kwargs)
-
         profile = get_object_or_404(StaffProfile, user__username=context['username'])
 
         context['profile'] = profile
@@ -72,8 +71,9 @@ class StaffListView(LoginRequiredMixin, ListView):
     """Staff List view."""
 
     template_name = 'staff_list.html'
+    login_url = reverse_lazy('auth_login')
     # import pdb; pdb.set_trace()
-    context_object_name = 'user'
+    context_object_name = 'profile'
     model = StaffProfile
 
     def get(self, *args, **kwargs):
@@ -86,15 +86,8 @@ class StaffListView(LoginRequiredMixin, ListView):
 
         return super().get(*args, **kwargs)
 
-    # def get(self, *args, **kwargs):
-    #     """Get."""
-    #     return super().get(*args, **kwargs)
-
     def get_context_data(self, **kwargs):
         """Get context."""
-        
+
         context = super().get_context_data(**kwargs)
         return context
-
-
-
