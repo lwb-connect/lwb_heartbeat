@@ -4,12 +4,12 @@ from django.db import models
 from django.dispatch import receiver
 from multiselectfield import MultiSelectField
 from django.db.models.signals import post_save
+from child.models import Country, LWBProgram
 
 
 class StaffProfile(models.Model):
     """
     This model defines both staff and volunteer users.
-
     This does not define children in the program
     """
 
@@ -17,7 +17,19 @@ class StaffProfile(models.Model):
         User,
         related_name='profile',
         on_delete=models.CASCADE
-    )
+        )
+    program_country = models.ManyToManyField(
+        Country,
+        blank=True,
+        related_name='lwb_staff'
+        )
+    lwb_program = models.ForeignKey(
+        LWBProgram,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='staff'
+        )
     about_you = models.TextField(
         max_length=3000,
         blank=True,
@@ -87,7 +99,8 @@ class StaffProfile(models.Model):
                   'Coordinator: Cambodia Safe Haven'),
                  ))
 
-    is_active = models.BooleanField(default=True)
+    # is_active = models.BooleanField(default=True)
+
 
     class Meta:
         """Meta class."""
@@ -98,6 +111,7 @@ class StaffProfile(models.Model):
     def active(cls):
         """Class method."""
         return cls.objects.filter(is_active=True)
+
 
     def __str__(self):
         """Class String magic."""
