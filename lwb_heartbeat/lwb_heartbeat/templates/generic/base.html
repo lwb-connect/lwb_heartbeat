@@ -23,7 +23,7 @@
     <nav>
       <ul>
         <li><a href="{% url "home" %}">Home</a></li>
-        <li><a href="{% url "about" %}">About us</a></li>
+        <li><a href="{% url "about" %}">About Us</a></li>
         {% if not user.is_authenticated%}
         <li><a href="{% url "auth_login" %}">Signin</a></li>
         {% endif %}
