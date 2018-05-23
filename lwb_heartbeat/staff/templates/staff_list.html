@@ -1,8 +1,18 @@
 {% extends 'generic/base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
-{% for staffs in staff %}
-    <p>{% trans "Staff Name" %}: {{ staffs.username }}</p>
-{% endfor %}
+{% if user.is_superuser %}
+
+    <h2>List of all registered staff:</h2>
+
+    {% for staff in profile %}
+        <p>{% trans "Staff Name" %}: {{ staff.user.username }}</p>
+    {% endfor %}
+
+{% else %}
+    <h2>You are not authorized to view this page</h2>
+{% endif %}
+
 {% endblock content %}
