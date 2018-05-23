@@ -9,6 +9,11 @@ def home_view(request):
     return render(request, 'generic/home.html', {})
 
 
+def about_us_view(request):
+    """About us view."""
+    return render(request, 'generic/about_us.html', {})
+
+
 # class HomeView(TemplateView):
 #     """Home view class."""
 

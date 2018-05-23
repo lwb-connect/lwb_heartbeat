@@ -99,6 +99,9 @@ class StaffProfile(models.Model):
         return self.user.username
 
 
-@receiver(post_save, sender=User)
-def staff_profile_hook(sender, **kwargs):
-    pass
+@receiver(models.signals.post_save, sender=User)
+def create_profile(sender, **keys):
+    """Create empty profile to allow indirect update."""
+    if keys['created']:
+        profile = StaffProfile(user=keys['instance'])
+        profile.save()

@@ -15,7 +15,7 @@ Including another URLconf
 """
 # from . import settings
 from django.contrib import admin
-from .views import home_view
+from .views import home_view, about_us_view
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf.urls import url
@@ -25,6 +25,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+    path('about/', about_us_view, name='about'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     path('accounts/', include('registration.backends.hmac.urls')),
