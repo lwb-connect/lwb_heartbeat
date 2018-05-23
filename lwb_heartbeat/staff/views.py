@@ -29,8 +29,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         """Get context data for profiles."""
         context = super().get_context_data(**kwargs)
-
-        profile = get_object_or_404(StaffProfile, user__username=context['username'])
+        profile = get_object_or_404(
+            StaffProfile, user__username=context['username'])
 
         context['profile'] = profile
         return context
@@ -48,19 +48,23 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     slug_field = 'user__username'
 
     def get(self, *args, **kwargs):
+        """Get."""
         self.kwargs['username'] = self.request.user.get_username()
         return super().get(*args, **kwargs)
 
     def post(self, *args, **kwargs):
+        """Post."""
         self.kwargs['username'] = self.request.user.get_username()
         return super().post(*args, **kwargs)
 
     def get_form_kwargs(self):
+        """Get kwargs."""
         kwargs = super().get_form_kwargs()
         kwargs.update({'username': self.request.user.get_username()})
         return kwargs
 
     def form_valid(self, form):
+        """Validate form."""
         form.instance.user.email = form.data['email']
         form.instance.user.first_name = form.data['first_name']
         form.instance.user.last_name = form.data['last_name']
@@ -72,8 +76,8 @@ class StaffListView(LoginRequiredMixin, ListView):
     """Staff List view."""
 
     template_name = 'staff_list.html'
-    # import pdb; pdb.set_trace()
-    context_object_name = 'user'
+    login_url = reverse_lazy('auth_login')
+    context_object_name = 'profile'
     model = StaffProfile
 
     def get(self, *args, **kwargs):
@@ -86,15 +90,7 @@ class StaffListView(LoginRequiredMixin, ListView):
 
         return super().get(*args, **kwargs)
 
-    # def get(self, *args, **kwargs):
-    #     """Get."""
-    #     return super().get(*args, **kwargs)
-
     def get_context_data(self, **kwargs):
         """Get context."""
-        
         context = super().get_context_data(**kwargs)
         return context
-
-
-

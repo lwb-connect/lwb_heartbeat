@@ -13,9 +13,10 @@ omit =
     */tests.py
     */manage.py
     */wsgi.py
+    */settings.py
 
 source =
-    imagersite
+    lwb_heartbeat
 
 [report]
 show_missing = True

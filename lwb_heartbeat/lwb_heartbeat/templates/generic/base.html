@@ -19,15 +19,20 @@
     <nav>
       <ul>
         <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "about" %}">About us</a></li>
+        {% if not user.is_authenticated%}
         <li><a href="{% url "auth_login" %}">Signin</a></li>
+        {% endif %}
         {% if user.is_authenticated %}
         <li><a href="{% url "auth_logout" %}">Logout</a></li>
         <li><a href="{% url "photo" %}">Photos</a></li>
         <li><a href="{% url "profile" %}">Profile</a></li>
         {% endif %}
+        {% if user.is_superuser or perms.staff.is_admin %}
+        <li><a href="{% url "stafflist" %}">Staff List</a></li>
         {% if user.is_superuser %}
         <li><a href="{% url "admin:index" %}">Admin</a></li>
-        <li><a href="{% url "stafflist" %}">Staff List</a></li>
+        {% endif %}
         {% endif %}
         
       </ul>
