@@ -8,7 +8,9 @@
     <h2>List of all registered staff:</h2>
 
     {% for staff in profile %}
+    <a href="{% url "named_profile" username=staff.user.username %}">
         <p>{% trans "Staff Name" %}: {{ staff.user.username }}</p>
+    </a>
     {% endfor %}
 
 {% else %}
