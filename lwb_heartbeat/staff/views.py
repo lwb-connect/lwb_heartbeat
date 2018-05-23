@@ -68,19 +68,31 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class StaffListView(ListView):
+class StaffListView(LoginRequiredMixin, ListView):
     """Staff List view."""
 
     template_name = 'staff_list.html'
+    # import pdb; pdb.set_trace()
     context_object_name = 'user'
     model = StaffProfile
 
     def get(self, *args, **kwargs):
-        """Get."""
+        """Get username."""
+        if kwargs:
+            return super().get(*args, **kwargs)
+
+        else:
+            kwargs.update({'username': self.request.user.username})
+
         return super().get(*args, **kwargs)
+
+    # def get(self, *args, **kwargs):
+    #     """Get."""
+    #     return super().get(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         """Get context."""
+        
         context = super().get_context_data(**kwargs)
         return context
 
