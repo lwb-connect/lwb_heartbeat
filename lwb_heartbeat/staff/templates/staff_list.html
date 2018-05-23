@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-{% if user.is_superuser %}
+{% if user.is_superuser or perms.staff.is_admin %}
 
     <h2>List of all registered staff:</h2>
 
