@@ -31,19 +31,19 @@ class StaffProfile(models.Model):
         blank=True,
         null=True)
     email = models.EmailField(
-        blank=True, 
+        blank=True,
         null=True)
     phone = models.CharField(
-        max_length=24, 
-        blank=True, 
+        max_length=24,
+        blank=True,
         null=True)
     location = models.CharField(
-        max_length=180, 
-        blank=True, 
+        max_length=180,
+        blank=True,
         null=True)
     user_language_spoken = models.CharField(
-        max_length=120, 
-        blank=True, 
+        max_length=120,
+        blank=True,
         null=True)
     user_language_spoken_other = models.CharField(
         max_length=120,
@@ -57,7 +57,7 @@ class StaffProfile(models.Model):
         max_length=120,
         blank=True,
         null=True)
-  
+
     role = MultiSelectField(
         choices=(('heartbeat_admin',
                   'Heartbeat Admin (Gives Sitewide Access: Use Caution'),
@@ -90,6 +90,8 @@ class StaffProfile(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        """Meta class."""
+
         permissions = (("is_admin", "Set user as admin"),)
 
     @classmethod
