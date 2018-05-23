@@ -88,6 +88,8 @@ class StaffListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         """Get context."""
-
         context = super().get_context_data(**kwargs)
+        # profile = get_object_or_404(StaffProfile, user_username=context['username'])
+        # context['profile'] = profile
+        # import pdb; pdb.set_trace()
         return context
