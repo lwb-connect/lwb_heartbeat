@@ -1,17 +1,17 @@
-"""Test."""
-from django.test import TestCase
-from .models import Child
-import factory
-from django.contrib.auth import get_user_model
-import faker
-from django.contrib.auth.models import User
-from model_mommy import mommy
-import tempfile
-from django.urls import reverse_lazy
-from .forms import ChildForm, PhotoForm
+# """Test."""
+# from django.test import TestCase
+# from .models import Child
+# import factory
+# from django.contrib.auth import get_user_model
+# import faker
+# from django.contrib.auth.models import User
+# from model_mommy import mommy
+# import tempfile
+# from django.urls import reverse_lazy
+# from .forms import ChildForm, PhotoForm
 
 
-fake = faker.Faker()
+# fake = faker.Faker()
 
 
 # class ChildFactory(factory.django.DjangoModelFactory):
