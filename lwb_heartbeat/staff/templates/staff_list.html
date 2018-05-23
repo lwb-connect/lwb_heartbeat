@@ -1,0 +1,10 @@
+{% extends 'generic/base.html' %}
+{% load i18n %}
+
+{% block content %}
+{% for staffs in staff %}
+    <p>{% trans "Staff Name" %}: {{ staffs.username }}</p>
+{% endfor %}
+
+
+{% endblock content %}

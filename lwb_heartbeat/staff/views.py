@@ -3,43 +3,14 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView, TemplateView
+from django.views.generic import DetailView, UpdateView, TemplateView, ListView
 from .models import StaffProfile
 from .forms import ProfileEditForm
 
 
-# class ProfileView(DetailView):
-#     """Class for staff view."""
-
-#     template_name = 'staff/profile.html'
-#     slug_url_kwarg = 'username'
-#     slug_field = 'user__username'
-#     model = StaffProfile
-#     context_object_name = 'profile'
-
-#     def get(self, *args, **kwargs):
-#         """Get argument."""
-#         if not self.request.user.is_authenticated:
-#             return redirect('home')
-
-#         if kwargs:
-#             return super().get(*args, **kwargs)
-
-#         else:
-#             self.kwargs.update({'username': self.request.user.username})
-
-#         return super().get(*args, **kwargs)
-
-#     def get_context_data(self, **kwargs):
-#         """Get contet data."""
-#         context = super().get_context_data(**kwargs)
-#         profile = get_object_or_404(StaffProfile, user__username=username)
-        
-#         context['user_profile'] = profile
-#         return context
-
-
 class ProfileView(LoginRequiredMixin, TemplateView):
+    """Profile view class."""
+
     template_name = 'profile.html'
     login_url = reverse_lazy('auth_login')
     model = StaffProfile
@@ -95,3 +66,23 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         form.instance.user.last_name = form.data['last_name']
         form.instance.user.save()
         return super().form_valid(form)
+
+
+class StaffListView(ListView):
+    """Staff List view."""
+
+    template_name = 'staff_list.html'
+    context_object_name = 'user'
+    model = StaffProfile
+
+    def get(self, *args, **kwargs):
+        """Get."""
+        return super().get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """Get context."""
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+
