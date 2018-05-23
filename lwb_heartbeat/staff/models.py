@@ -10,6 +10,7 @@ from child.models import Country, LWBProgram
 class StaffProfile(models.Model):
     """
     This model defines both staff and volunteer users.
+
     This does not define children in the program
     """
 
@@ -99,8 +100,7 @@ class StaffProfile(models.Model):
                   'Coordinator: Cambodia Safe Haven'),
                  ))
 
-    # is_active = models.BooleanField(default=True)
-
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         """Meta class."""
@@ -111,7 +111,6 @@ class StaffProfile(models.Model):
     def active(cls):
         """Class method."""
         return cls.objects.filter(is_active=True)
-
 
     def __str__(self):
         """Class String magic."""
