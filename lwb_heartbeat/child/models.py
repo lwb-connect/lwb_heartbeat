@@ -1,38 +1,44 @@
 from django.db import models
 from multiselectfield import MultiSelectField
-from staff.models import StaffProfile
+# from staff.models import StaffProfile
 
 
 class Country(models.Model):
     """
     Defines the Countries in the LWB Organization.
     """
-    lwbprogram = models.ForeignKey(
-        'LWBProgram',
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        )
-    staff = models.ForeignKey(
-        StaffProfile,
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        )
-    children = models.ForeignKey(
-        'Child',
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        )
     country_name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.country_name
+
+    # lwbprogram = models.ForeignKey(
+    #     'LWBProgram',
+    #     on_delete=models.PROTECT,
+    #     null=True,
+    #     blank=True,
+    #     )
+    # staff = models.ForeignKey(
+    #     StaffProfile,
+    #     on_delete=models.PROTECT,
+    #     null=True,
+    #     blank=True,
+    #     )
+    # children = models.ForeignKey(
+    #     'Child',
+    #     on_delete=models.PROTECT,
+    #     null=True,
+    #     blank=True,
+    #     )
 
 
 class Child(models.Model):
     """
     Defines the model in whicha Child in LWB care will be defined.
     """
-    is_active = models.BooleanField(default=True)
+    currently_in_lwb_care = models.BooleanField(default=True)
+    date_entered_lwb_care = models.DateField(blank=True, null=True)
+    date_child_left_lwb_care = models.DateField(blank=True, null=True)
     program_number = models.CharField(
         default='CSB000001',
         max_length=9,
@@ -40,17 +46,28 @@ class Child(models.Model):
         blank=True,
         unique=True,
         )
-    nick_name = models.CharField(max_length=180, default='Untitled')
-    given_name = models.CharField(max_length=180, default='Untitled')
+    nick_name = models.CharField(max_length=180, default='nick name')
+    given_name_sir = models.CharField(max_length=180, default='sir name')
+    given_name_first = models.CharField(max_length=180, default='first name')
     DOB = models.DateField(blank=True, null=True)
     date_modified = models.DateField(auto_now=True)
     location_country = models.ForeignKey(
         Country,
-        on_delete='CASCADE'
+        on_delete='CASCADE',
+        related_name='children',
+        null=True,
+        blank=True,
+        )
+    education_program = models.ForeignKey(
+        'Education',
+        on_delete='CASCADE',
+        related_name='children',
+        null=True,
+        blank=True,
         )
 
     def __str__(self):
-        return '{}'.format(self.program_number)
+        return '{}, {}, {}, {}'.format(self.program_number, self.nick_name, self.given_name_sir, self.given_name_first)
 
 
 class GrowthData(models.Model):
@@ -85,6 +102,9 @@ class GrowthData(models.Model):
         return self.weight / (self.height * 100)**2
 
     concern_flag = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '{}, Conern: {}'.format(self.child, self.concern_flag)
 
 
 class GeneralUpdate(models.Model):
@@ -131,7 +151,7 @@ class LWBProgram(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name='lwbprogram'
-    )
+        )
     lwbprogram = MultiSelectField(
         max_length=240,
         blank=True,
@@ -140,8 +160,18 @@ class LWBProgram(models.Model):
             ('ED', 'Education'),
             ('FC', 'Foster Care'),
             ('MD', 'Medical'),
-            ('TF', 'Traffic Rescue')
+            ('TF', 'Safe Haven'),
+            ('NT', 'Nutrition'),
+            ('HH', 'Healing Home')
         ))
+    country = models.ManyToManyField(
+            Country,
+            blank=True,
+            related_name='lwbprogram'
+        )
+    
+    def __str__(self):
+        return '{}'.format(self.lwbprogram)
 
 
 class Education(models.Model):
@@ -166,6 +196,9 @@ class Education(models.Model):
                   'ED Cambodia Sokhem Village Sibling School'),
                  ))
 
+    def __str__(self):
+        return str(self.school)
+
 
 class FosterCare(models.Model):
     """
@@ -178,11 +211,14 @@ class FosterCare(models.Model):
         on_delete=models.CASCADE,
         related_name='foster_care'
         )
-    school = MultiSelectField(
+    location = MultiSelectField(
         choices=(
             ('N/A', 'Not Currently Available'),
             ('N/A', 'Not Currently Available'),
             ))
+ 
+    def __str__(self):
+        return str(self.foster_program)
 
 
 class HealingHome(models.Model):
@@ -196,10 +232,13 @@ class HealingHome(models.Model):
         on_delete=models.CASCADE,
         related_name='healing_home'
         )
-    school = MultiSelectField(
+    healing_home_id = MultiSelectField(
         choices=(
             ('N/A', 'Not Currently Available'),
             ))
+
+    def __str__(self):
+        return str(self.healing_home_id)
 
 
 class Trafficking(models.Model):
@@ -212,10 +251,13 @@ class Trafficking(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name='trafficking_program')
-    school = MultiSelectField(
+    trfk_program_id = MultiSelectField(
         choices=(
             ('N/A', 'Not Currently Available'),
             ))
+
+    def __str__(self):
+        return str(self.trfk_program_id)
 
 
 class Medical(models.Model):
@@ -228,10 +270,13 @@ class Medical(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name='medical_program')
-    school = MultiSelectField(
+    location = MultiSelectField(
         choices=(
-            ('N/A', 'Not Currently Available'),
+            ('KSFH', 'Khmer-Soviet Friendship Hospital'),
             ))
+
+    def __str__(self):
+        return str(self.location)
 
 
 class Nutrition(models.Model):
@@ -245,10 +290,13 @@ class Nutrition(models.Model):
         on_delete=models.CASCADE,
         related_name='nutrition_program'
         )
-    school = MultiSelectField(
+    nutr_id = MultiSelectField(
         choices=(
             ('N/A', 'Not Currently Available'),
             ))
+
+    def __str__(self):
+        return str(self.nutr_id)
 
 
 class MedicalCodes(models.Model):
@@ -306,3 +354,5 @@ class MedicalCodes(models.Model):
             ('UR', 'UR Urologic Issues'),
         ))
 
+    def __str__(self):
+        return '{} {}'.format(self.child, self.medical_codes)
