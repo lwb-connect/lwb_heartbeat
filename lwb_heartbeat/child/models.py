@@ -1,28 +1,27 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from staff.models import StaffProfile
-# from django.contrib.auth.models import User
 
 
 class Country(models.Model):
     """
-    Defines the Countries in the LWB Organization.  
+    Defines the Countries in the LWB Organization.
     """
     lwbprogram = models.ForeignKey(
-        'LWBProgram', 
-        on_delete=models.PROTECT, 
+        'LWBProgram',
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
         )
     staff = models.ForeignKey(
-        StaffProfile, 
+        StaffProfile,
         on_delete=models.PROTECT,
         null=True,
         blank=True,
         )
     children = models.ForeignKey(
-        'Child', 
-        on_delete=models.PROTECT, 
+        'Child',
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
         )
@@ -33,36 +32,93 @@ class Child(models.Model):
     """
     Defines the model in whicha Child in LWB care will be defined.
     """
+    is_active = models.BooleanField(default=True)
     program_number = models.CharField(
         default='CSB000001',
-        max_length=9, 
-        null=True, 
+        max_length=9,
+        null=True,
         blank=True,
         unique=True,
         )
     nick_name = models.CharField(max_length=180, default='Untitled')
     given_name = models.CharField(max_length=180, default='Untitled')
-    d_o_b = models.DateField(blank=True, null=True)
+    DOB = models.DateField(blank=True, null=True)
     date_modified = models.DateField(auto_now=True)
     location_country = models.ForeignKey(
-        Country, 
+        Country,
         on_delete='CASCADE'
         )
-    # program = models.ForeignKey(
-    #     'Program', 
-    #     blank=True, 
-    #     null=True,
-    #     on_delete=models.CASCADE, 
-    #     related_name='child'
-    #     )
-    # medical_code = models.ForeignKey(
-    #     'MedicalCodes', 
-    #     on_delete=models.CASCADE, 
-    #     related_name='child'
-    #     )
 
     def __str__(self):
         return '{}'.format(self.program_number)
+
+
+class GrowthData(models.Model):
+    """
+    Defines growth data for child updates
+    """
+    child = models.OneToOneField(
+        Child,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        )
+    date_recorded = models.DateField(auto_now=True)
+    height = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        )
+    weight = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        )
+
+    @property
+    def bmi(self):
+        """
+        Calculates and returns bmi.
+        """
+        return self.weight / (self.height * 100)**2
+
+    concern_flag = models.BooleanField(default=False)
+
+
+class GeneralUpdate(models.Model):
+    """
+    Handles general text reports and notes on a Child instance.
+    """
+    child = models.OneToOneField(
+        Child,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        )
+    date_created = models.DateField(auto_now=True)
+    note = models.CharField(max_length=10000, default='enter child notes here')
+
+
+class MedicalUpdate(models.Model):
+    """
+    Handles medical text reports and notes on a Child instance.
+    """
+    child = models.OneToOneField(
+        Child,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        )
+    date_created = models.DateField(auto_now=True)
+    date_edited = models.DateField(auto_now=False)
+    medical_note = models.CharField(
+        max_length=10000,
+        null=True,
+        blank=True,
+        default='enter child notes here'
+        )
 
 
 class LWBProgram(models.Model):
@@ -78,7 +134,7 @@ class LWBProgram(models.Model):
     )
     lwbprogram = MultiSelectField(
         max_length=240,
-        blank=True, 
+        blank=True,
         null=True,
         choices=(
             ('ED', 'Education'),
@@ -90,11 +146,15 @@ class LWBProgram(models.Model):
 
 class Education(models.Model):
     """
-    Defines all the Education programs in the LWB Organization.  
+    Defines all the Education programs in the LWB Organization.
     """
-    country = models.ForeignKey(
-        Country,
-        on_delete=models.CASCADE)
+    education_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='education_program'
+        )
     school = MultiSelectField(
         choices=(('ED_CAM_BIM_RANGSEI_VILLAGE',
                   'ED Cambodia Rangsei Village BIM'),
@@ -103,8 +163,92 @@ class Education(models.Model):
                  ('ED_CAM_BIM_ARY_VILLAGE',
                   'ED Cambodia Ary Village BIM'),
                  ('ED_CAM_SIB_SOKHEM_VILLAGE',
-                  'ED Cambodia Sokhem Village Sibling School'), 
+                  'ED Cambodia Sokhem Village Sibling School'),
                  ))
+
+
+class FosterCare(models.Model):
+    """
+    Defines all the Foster programs in the LWB Organization.
+    """
+    foster_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='foster_care'
+        )
+    school = MultiSelectField(
+        choices=(
+            ('N/A', 'Not Currently Available'),
+            ('N/A', 'Not Currently Available'),
+            ))
+
+
+class HealingHome(models.Model):
+    """
+    Defines all the Foster programs in the LWB Organization.
+    """
+    healing_home_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='healing_home'
+        )
+    school = MultiSelectField(
+        choices=(
+            ('N/A', 'Not Currently Available'),
+            ))
+
+
+class Trafficking(models.Model):
+    """
+    Defines all the human trafficking aid programs in the LWB Organization.
+    """
+    trafficking_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='trafficking_program')
+    school = MultiSelectField(
+        choices=(
+            ('N/A', 'Not Currently Available'),
+            ))
+
+
+class Medical(models.Model):
+    """
+    Defines all the medical programs in the LWB Organization.
+    """
+    medical_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='medical_program')
+    school = MultiSelectField(
+        choices=(
+            ('N/A', 'Not Currently Available'),
+            ))
+
+
+class Nutrition(models.Model):
+    """
+    Defines all the human trafficking aid programs in the LWB Organization.
+    """
+    nutrition_program = models.ForeignKey(
+        LWBProgram,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='nutrition_program'
+        )
+    school = MultiSelectField(
+        choices=(
+            ('N/A', 'Not Currently Available'),
+            ))
 
 
 class MedicalCodes(models.Model):
@@ -121,7 +265,7 @@ class MedicalCodes(models.Model):
 
     medical_codes = MultiSelectField(
         max_length=240,
-        blank=True, 
+        blank=True,
         null=True,
         choices=(
             ('AA', 'AA Anal Atresia'),
@@ -159,5 +303,6 @@ class MedicalCodes(models.Model):
             ('PU', 'PU Pulmonary Issues'),
             ('RI', 'RI Renal Issues'),
             ('TU', 'TU Tumors (ex. Teratomas'),
-            ('UR', 'UR Urologic Issues'),  
-            ))
+            ('UR', 'UR Urologic Issues'),
+        ))
+
