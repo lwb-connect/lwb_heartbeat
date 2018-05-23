@@ -89,6 +89,9 @@ class StaffProfile(models.Model):
 
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+        permissions = (("is_admin", "Set user as admin"),)
+
     @classmethod
     def active(cls):
         """Class method."""
