@@ -1,0 +1,37 @@
+{% extends "generic/base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="child-container container">
+
+  <h2>You're viewing the profile for {{ child.nick_name }}</h2>
+
+  <section class="profile-info">
+    <h2>Child Profile Information</h2>
+    <p>{% trans "Currently in lwb care:" %} {{ child.currently_in_lwb_care }}</p>
+    <p>{% trans "Date entered lwb care:" %} {{ child.date_entered_lwb_care }}</p>
+    <p>{% trans "Date left lwb care:" %} {{ child.date_left_lwb_care }}</p>
+    <p>{% trans "Program Number:" %} {{ child.program_number }}</p>
+    <p>{% trans "Nick Name:" %} {{ child.nick_name }}</p>
+    <p>{% trans "Given Name Sur:" %} {{ child.given_name_sur }}</p>
+    <p>{% trans "Given Name First:" %} {{ child.given_name_first }}</p>
+    <p>{% trans "Date of Birth:" %} {{ child.DOB }}</p>
+    <p>{% trans "Date Modified:" %} {{ child.date_modified }}</p>
+    <p>{% trans "Country:" %} {{ child.location_country }}</p>
+    <p>{% trans "Education Program:" %} {{ child.education_program }}</p>
+
+    {% if user.is_superuser or perms.staff.is_admin %}
+    <button>
+        <a href="{% url "childsettings" pk=child.id %}">{% trans "Edit Child Profile" %}</a>
+    </button>
+    {% endif %}
+
+  </section>
+
+</section>
+{% else %}
+<h1>{% trans "Please log into the site" %}</h1>
+{% endif %}
+{% endblock content %}

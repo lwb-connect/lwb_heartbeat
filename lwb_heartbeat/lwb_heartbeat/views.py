@@ -12,19 +12,3 @@ def home_view(request):
 def about_us_view(request):
     """About us view."""
     return render(request, 'generic/about_us.html', {})
-
-
-# class HomeView(TemplateView):
-#     """Home view class."""
-
-#     template_name = 'generic/home.html'
-
-#     def get_context_data(self, *args, **kwargs):
-#         """Home view."""
-#         context = super().get_context_data(**kwargs)
-#         # context['background'] = sample(list(Photo.objects.filter(published="PUBLIC")) + [None], 1)[0]
-#         context['message'] = 'Hello World'
-
-#         return context
-
-
