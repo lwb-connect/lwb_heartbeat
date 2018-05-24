@@ -1,6 +1,11 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
+# caution:
+# infinite loop import:
+# from images.models import Photo
+from sorl.thumbnail import ImageField
+
 
 class Country(models.Model):
     """

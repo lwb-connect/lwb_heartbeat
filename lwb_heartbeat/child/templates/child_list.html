@@ -20,4 +20,10 @@ adjust view permissions later
     <h2>You are not authorized to view this page</h2>
 {% endif %}
 
+{% if user.is_superuser or perms.staff.is_admin %}
+    <button>
+        <a href="{% url "child_create" %}">{% trans "Add a new child" %}</a>
+    </button>
+{% endif %}
+
 {% endblock content %}

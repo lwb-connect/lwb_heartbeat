@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from . import settings
+from . import settings
 from django.contrib import admin
 from .views import home_view, about_us_view
 from django.urls import path, include
@@ -32,7 +32,7 @@ urlpatterns = [
     path('staff/', include('staff.urls')),
     path('images/', include('images.urls')),
     path('child/', include('child.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # use if our static images stop loading to the view:
