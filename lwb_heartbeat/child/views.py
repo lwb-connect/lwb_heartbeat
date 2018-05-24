@@ -6,6 +6,25 @@ from django.conf import settings
 from .models import Child
 
 
+class ChildListView(LoginRequiredMixin, ListView):
+    """View to see a list of all children."""
+
+    template_name = "child_list.html"
+    login_url = reverse_lazy('auth_login')
+    context_object_name = 'children'
+    model = Child
+
+    def get(self, *args, **kwargs):
+        """get args and kwargs"""
+       
+        return super().get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """return context data"""
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 class ChildDetailView(LoginRequiredMixin, DetailView):
     template_name = 'child_detail.html'
     model = Child

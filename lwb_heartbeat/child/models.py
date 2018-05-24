@@ -47,7 +47,7 @@ class Child(models.Model):
         unique=True,
         )
     nick_name = models.CharField(max_length=180, default='nick name')
-    given_name_sir = models.CharField(max_length=180, default='sir name')
+    given_name_sur = models.CharField(max_length=180, default='sur name')
     given_name_first = models.CharField(max_length=180, default='first name')
     DOB = models.DateField(blank=True, null=True)
     date_modified = models.DateField(auto_now=True)
@@ -67,7 +67,7 @@ class Child(models.Model):
         )
 
     def __str__(self):
-        return '{}, {}, {}, {}'.format(self.program_number, self.nick_name, self.given_name_sir, self.given_name_first)
+        return '{}, {}, {}, {}'.format(self.program_number, self.nick_name, self.given_name_sur, self.given_name_first)
 
 
 class GrowthData(models.Model):

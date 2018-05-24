@@ -33,6 +33,7 @@
         <li><a href="{% url "photo" %}">Photos</a></li>
         {% endcomment %}
         <li><a href="{% url "profile" %}">Profile</a></li>
+        <li><a href="{% url "childlist" %}">List of Children</a></li>
         {% endif %}
         {% if user.is_superuser or perms.staff.is_admin %}
         <li><a href="{% url "stafflist" %}">Staff List</a></li>

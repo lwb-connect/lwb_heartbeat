@@ -1,11 +1,11 @@
 from django.urls import path
 from .views import (
     ChildDetailView,
-    ChildCreateView)
+    ChildCreateView, ChildListView)
 
 
 urlpatterns = [
+    path('childlist', ChildListView.as_view(), name='childlist'),
     path('child/<int:pk>', ChildDetailView.as_view(), name='child_detail'),
     path('child/add', ChildCreateView.as_view(), name='child_create'),
-    ] 
-     
+    ]
