@@ -1,0 +1,13 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+
+<div class="child-add-container">
+    <form class="child-create-form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Child</button>
+</form>
+</div>
+
+{% endblock content %}

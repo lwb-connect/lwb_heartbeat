@@ -37,7 +37,10 @@ class ChildAddForm(ModelForm):
         """Add metadata"""
         model = Child
         # DO
-        fields = []
+        fields = ['currently_in_lwb_care', 'date_entered_lwb_care',
+                  'date_child_left_lwb_care', 'program_number',
+                  'nick_name', 'given_name_sur', 'given_name_first', 'DOB',
+                  'location_country', 'education_program']
 
     def __init__(self, *args, **kwargs):
         """Initialization."""

@@ -3,7 +3,7 @@ from django.views.generic import (TemplateView, ListView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.conf import settings
-from .forms import ChildEditForm
+from .forms import ChildEditForm, ChildAddForm
 from .models import Child
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
@@ -121,18 +121,19 @@ class ChildDetailView(LoginRequiredMixin, DetailView):
 
 
 class ChildCreateView(LoginRequiredMixin, CreateView):
+    """Lets a staff with appropriate permissions add a child to the system."""
     pass
-    # template_name = 'child_create.html'
-    # model = Child
-    # form_class = ChildForm
-    # success_url = 'store'
-    # login_url = reverse_lazy('auth_login')
+    template_name = 'child_create.html'
+    model = Child
+    form_class = ChildAddForm
+    success_url = reverse_lazy('childlist')
+    login_url = reverse_lazy('auth_login')
 
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs.update({'username': self.request.user.username})
-    #     return kwargs
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'username': self.request.user.username})
+        return kwargs
 
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
