@@ -15,8 +15,8 @@ class PhotoForm(ModelForm):
         username = kwargs.pop('username')
         super().__init__(*args, **kwargs)
 
-        self.fields['image'].queryset = Photo.objects.filter(
-                                        user__username=username)
+        # self.fields['image'].queryset = Photo.objects.filter(
+        #                                 user__username=username)
 
 
 class PhotoEditForm(ModelForm):
@@ -28,6 +28,3 @@ class PhotoEditForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         username = kwargs.pop('username')
-
-        self.fields['image'].queryset = Photo.objects.filter(
-                                        album__user__username=username)

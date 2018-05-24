@@ -1,7 +1,10 @@
 """imports."""
 from django.contrib.auth.models import User
-from django.forms import ModelForm, CharField
+from django.forms import ModelForm, CharField, ImageField, Textarea, widgets
 from .models import Child, Country
+from images.models import Photo
+# don't use
+# from sorl.thumbnail import ImageField
 
 
 class ChildEditForm(ModelForm):
@@ -9,9 +12,10 @@ class ChildEditForm(ModelForm):
 
     # DO
     # maybe no need
-    country_name = CharField(
-        # lets you get meta data of another model
-        max_length=Country._meta.get_field('country_name').max_length,)
+
+    # country_name = CharField(
+    #     # lets you get meta data of another model
+    #     max_length=Country._meta.get_field('country_name').max_length,)
 
     class Meta:
         model = Child
@@ -23,7 +27,6 @@ class ChildEditForm(ModelForm):
     def __init__(self, *args, **kwargs):
         """Initialization."""
         username = kwargs.pop('username')
-        # super().__init__(*args, **kwargs)
         # # self.fields['child_id'].queryset = Child.objects.filter(child__user__username=username)
         # self.fields['country_name'].initial = Country.objects.get(
         #                                         username=username).country_name
@@ -33,11 +36,18 @@ class ChildEditForm(ModelForm):
 class ChildAddForm(ModelForm):
     """Form for adding a child to the database."""
 
+    image = ImageField(required=False)
+    description = CharField(widget=Textarea, required=False)
+
     class Meta:
         """Add metadata"""
         model = Child
         # DO
-        fields = []
+        fields = ['currently_in_lwb_care', 'date_entered_lwb_care',
+                  'date_child_left_lwb_care', 'program_number',
+                  'nick_name', 'given_name_sur', 'given_name_first', 'DOB',
+                  'location_country', 'education_program',
+                  'image', 'description']
 
     def __init__(self, *args, **kwargs):
         """Initialization."""

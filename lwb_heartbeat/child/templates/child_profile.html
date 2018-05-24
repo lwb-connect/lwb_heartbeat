@@ -10,6 +10,14 @@
 
   <section class="profile-info">
     <h2>Child Profile Information</h2>
+
+    {% thumbnail child.photos.first.image "x200" as im %}
+      <img src="{{ im.url }}">
+    {% endthumbnail %}
+
+    <p>{% trans "Photo Description:" %} {{ child.photos.first.description }}</p>
+
+
     <p>{% trans "Currently in lwb care:" %} {{ child.currently_in_lwb_care }}</p>
     <p>{% trans "Date entered lwb care:" %} {{ child.date_entered_lwb_care }}</p>
     <p>{% trans "Date left lwb care:" %} {{ child.date_left_lwb_care }}</p>
