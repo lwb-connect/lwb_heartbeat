@@ -29,7 +29,11 @@
     <p>{% trans "Date Modified:" %} {{ child.date_modified }}</p>
     <p>{% trans "Country:" %} {{ child.location_country }}</p>
     <p>{% trans "Education Program:" %} {{ child.education_program }}</p>
-
+    <ul>
+    {% for i in growth %}
+    <li>{% trans "BMI" %} {{ i }}</li>
+    {% endfor %}
+    </ul>
     {% if user.is_superuser or perms.staff.is_admin %}
     <button>
         <a href="{% url "childsettings" pk=child.id %}">{% trans "Edit Child Profile" %}</a>

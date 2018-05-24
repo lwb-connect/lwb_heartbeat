@@ -7,7 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+  <link rel="stylesheet" href="https://use.typekit.net/pen0mae.css">
+  <link href="https://fonts.googleapis.com/css?family=Khmer" rel="stylesheet">
   <link rel="stylesheet" href="{% static "normalize.css" %}">
   <link rel="stylesheet" href="{% static "base.css" %}">
   <link rel="stylesheet" href="{% static "layout.css" %}">
@@ -44,15 +45,20 @@
         
       </ul>
     </nav>
-    {% if user.is_authenticated %}
-    <h3>Welcome, {{user.username}}</h3>
-    {% endif %}
   </header>
-
+  
   <main>
-        {% block content %}
-        <h3>No Content</h3>
-        {% endblock content%}
+    <div class="logo-container">
+      <div class="logo">
+        <img src="{% static 'lwb_heartbeat_logo.png' %}" class="hb_logo_img" alt="Heartbeat">
+      </div>
+      {% if user.is_authenticated %}
+      <p class="welcome-message">Welcome, {{user.username}}</p>
+      {% endif %}
+   </div>
+    {% block content %}
+    <h3>No Content</h3>
+    {% endblock content%}
         
   </main>
 
