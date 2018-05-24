@@ -6,12 +6,11 @@ from child.models import Child
 
 class Photo(models.Model):
     """
-    Creates Photo model that uses one way connection to Album to join both
-    tables to build assocation stream.
+    Creates Photo model that is associated with a single child.
     """
     child = models.ForeignKey(
-        Child, 
-        on_delete=models.CASCADE, 
+        Child,
+        on_delete=models.CASCADE,
         related_name='photos'
         )
     image = ImageField(upload_to='images')
@@ -30,4 +29,4 @@ class Photo(models.Model):
 
     def __str__(self):
         """Returns representation of current Photo title."""
-        return '{}'.format(self.title)
+        return '{}'.format(self.description)

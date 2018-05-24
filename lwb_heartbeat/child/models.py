@@ -2,6 +2,11 @@ from django.db import models
 from multiselectfield import MultiSelectField
 # from staff.models import StaffProfile
 
+# caution:
+# infinite loop import:
+# from images.models import Photo
+from sorl.thumbnail import ImageField
+
 
 class Country(models.Model):
     """
