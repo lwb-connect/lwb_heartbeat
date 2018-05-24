@@ -16,13 +16,16 @@ class ChildEditForm(ModelForm):
     # country_name = CharField(
     #     # lets you get meta data of another model
     #     max_length=Country._meta.get_field('country_name').max_length,)
+    image = ImageField(required=False)
+    description = CharField(widget=Textarea, required=False)
 
     class Meta:
         model = Child
         fields = ['currently_in_lwb_care', 'date_entered_lwb_care',
                   'date_child_left_lwb_care', 'program_number',
                   'nick_name', 'given_name_sur', 'given_name_first', 'DOB',
-                  'location_country', 'education_program']
+                  'location_country', 'education_program',
+                  'image', 'description']
 
     def __init__(self, *args, **kwargs):
         """Initialization."""
@@ -31,6 +34,11 @@ class ChildEditForm(ModelForm):
         # self.fields['country_name'].initial = Country.objects.get(
         #                                         username=username).country_name
         super().__init__(*args, **kwargs)
+        photo = self.instance.photos.first()
+        # import pdb; pdb.set_trace()
+        if photo:
+            self.fields['image'].initial = photo.image
+            self.fields['description'].initial = photo.description
 
 
 class ChildAddForm(ModelForm):

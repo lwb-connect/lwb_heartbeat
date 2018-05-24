@@ -100,10 +100,25 @@ class ChildEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         """Validate form data."""
-        form.instance.user = self.request.user
-        # DO
-        # maybe use, with child instead of user......
-        # form.instance.user.save()
+        # form.instance.user = self.request.user
+        # form.instance.save()
+        # import pdb; pdb.set_trace()
+        photo = form.instance.photos.first()
+        if photo and 'image' not in form.files:
+            photo.delete()
+        elif photo:
+            photo.image = form.files['image']
+            photo.description = form.data['description']
+            photo.save()
+        elif 'image' in form.files:
+            # create new photo instance
+            photo = Photo(
+                child=form.instance,
+                image=form.files['image'],
+                description=form.data['description']
+            )
+            photo.save()
+
         return super().form_valid(form)
 
 
@@ -146,7 +161,7 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.save()
-        if form.files['image']:
+        if 'image' in form.files:
             # create new photo instance
             photo = Photo(
                 child=form.instance,
