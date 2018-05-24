@@ -113,7 +113,7 @@ class GeneralUpdate(models.Model):
     class Meta:
         verbose_name_plural = "General Updates"
 
-    child = models.OneToOneField(
+    child = models.ForeignKey(
         Child,
         blank=True,
         null=True,
@@ -130,7 +130,7 @@ class MedicalUpdate(models.Model):
     class Meta:
         verbose_name_plural = "Medical Updates"
 
-    child = models.OneToOneField(
+    child = models.ForeignKey(
         Child,
         blank=True,
         null=True,
