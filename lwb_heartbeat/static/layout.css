@@ -1,0 +1,20 @@
+header {
+    background-color: #ce3843;
+    list-style: none;
+}
+
+nav {
+    height: 50px;
+    display: inline-block;
+    padding-top: 10px;
+    width: 100%;
+    background-color: #ce3843;
+}
+
+nav li {
+    display: inline-block;
+    background-color: #ce3843; 
+    text-decoration: none;
+    color: #fffaf1;
+    margin: 0px, 20px, 0px, 20px;
+}

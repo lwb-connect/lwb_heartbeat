@@ -30,4 +30,4 @@ class Photo(models.Model):
 
     def __str__(self):
         """Returns representation of current Photo title."""
-        return '{}'.format(self.title)
+        return '{}: {}'.format(self.child, self.description)

@@ -1,41 +1,27 @@
 from django.db import models
 from multiselectfield import MultiSelectField
-# from staff.models import StaffProfile
 
 
 class Country(models.Model):
     """
     Defines the Countries in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Countries"
+
     country_name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.country_name
-
-    # lwbprogram = models.ForeignKey(
-    #     'LWBProgram',
-    #     on_delete=models.PROTECT,
-    #     null=True,
-    #     blank=True,
-    #     )
-    # staff = models.ForeignKey(
-    #     StaffProfile,
-    #     on_delete=models.PROTECT,
-    #     null=True,
-    #     blank=True,
-    #     )
-    # children = models.ForeignKey(
-    #     'Child',
-    #     on_delete=models.PROTECT,
-    #     null=True,
-    #     blank=True,
-    #     )
 
 
 class Child(models.Model):
     """
     Defines the model in whicha Child in LWB care will be defined.
     """
+    class Meta:
+        verbose_name_plural = "Children"
+
     currently_in_lwb_care = models.BooleanField(default=True)
     date_entered_lwb_care = models.DateField(blank=True, null=True)
     date_child_left_lwb_care = models.DateField(blank=True, null=True)
@@ -67,27 +53,35 @@ class Child(models.Model):
         )
 
     def __str__(self):
-        return '{}, {}, {}, {}'.format(self.program_number, self.nick_name, self.given_name_sur, self.given_name_first)
+        return '{}, {}, {}, {}'.format(
+            self.program_number,
+            self.nick_name,
+            self.given_name_sur,
+            self.given_name_first
+            )
 
 
 class GrowthData(models.Model):
     """
     Defines growth data for child updates
     """
-    child = models.OneToOneField(
+    class Meta:
+        verbose_name_plural = "Growth Data"
+
+    child = models.ForeignKey(
         Child,
         blank=True,
         null=True,
         on_delete=models.CASCADE,
         )
     date_recorded = models.DateField(auto_now=True)
-    height = models.DecimalField(
+    height_cm = models.DecimalField(
         max_digits=8,
         decimal_places=2,
         blank=True,
         null=True,
         )
-    weight = models.DecimalField(
+    weight_kg = models.DecimalField(
         max_digits=8,
         decimal_places=2,
         blank=True,
@@ -99,7 +93,7 @@ class GrowthData(models.Model):
         """
         Calculates and returns bmi.
         """
-        return self.weight / (self.height * 100)**2
+        return self.weight_kg / (self.height_cm * 100)**2
 
     concern_flag = models.BooleanField(default=False)
 
@@ -111,6 +105,9 @@ class GeneralUpdate(models.Model):
     """
     Handles general text reports and notes on a Child instance.
     """
+    class Meta:
+        verbose_name_plural = "General Updates"
+
     child = models.OneToOneField(
         Child,
         blank=True,
@@ -125,6 +122,9 @@ class MedicalUpdate(models.Model):
     """
     Handles medical text reports and notes on a Child instance.
     """
+    class Meta:
+        verbose_name_plural = "Medical Updates"
+
     child = models.OneToOneField(
         Child,
         blank=True,
@@ -145,6 +145,9 @@ class LWBProgram(models.Model):
     """
     Defines the programs to which a Child instance can be related.
     """
+    class Meta:
+        verbose_name_plural = "LWB Programs"
+
     child = models.OneToOneField(
         Child,
         blank=True,
@@ -169,7 +172,7 @@ class LWBProgram(models.Model):
             blank=True,
             related_name='lwbprogram'
         )
-    
+
     def __str__(self):
         return '{}'.format(self.lwbprogram)
 
@@ -178,6 +181,9 @@ class Education(models.Model):
     """
     Defines all the Education programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Education Programs"
+
     education_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -204,6 +210,9 @@ class FosterCare(models.Model):
     """
     Defines all the Foster programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Foster Care Programs"
+
     foster_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -216,7 +225,7 @@ class FosterCare(models.Model):
             ('N/A', 'Not Currently Available'),
             ('N/A', 'Not Currently Available'),
             ))
- 
+
     def __str__(self):
         return str(self.foster_program)
 
@@ -225,6 +234,9 @@ class HealingHome(models.Model):
     """
     Defines all the Foster programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Healing Home Programs"
+
     healing_home_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -245,6 +257,9 @@ class Trafficking(models.Model):
     """
     Defines all the human trafficking aid programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Trafficking Programs"
+
     trafficking_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -264,6 +279,9 @@ class Medical(models.Model):
     """
     Defines all the medical programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Medical Programs"
+
     medical_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -283,6 +301,9 @@ class Nutrition(models.Model):
     """
     Defines all the human trafficking aid programs in the LWB Organization.
     """
+    class Meta:
+        verbose_name_plural = "Nutrition Programs"
+
     nutrition_program = models.ForeignKey(
         LWBProgram,
         blank=True,
@@ -303,6 +324,9 @@ class MedicalCodes(models.Model):
     """
     Defines the programs to which a Child instance can be related.
     """
+    class Meta:
+        verbose_name_plural = "Medical Codes"
+
     child = models.OneToOneField(
         Child,
         blank=True,
