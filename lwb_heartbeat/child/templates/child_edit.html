@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="child-edit">
-    <form class="child-edit-form" method="POST">
+    <form class="child-edit-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Update Child</button>
