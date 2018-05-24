@@ -24,7 +24,7 @@
 
     {% if user.is_superuser or perms.staff.is_admin %}
     <button>
-        <a href="{% url "settings" username=user.username %}">{% trans "Edit Child Profile" %}</a>
+        <a href="{% url "childsettings" pk=child.id %}">{% trans "Edit Child Profile" %}</a>
     </button>
     {% endif %}
 

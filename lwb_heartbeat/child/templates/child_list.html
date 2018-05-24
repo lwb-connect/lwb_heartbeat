@@ -11,13 +11,9 @@ adjust view permissions later
     <h2>List of all children:</h2>
 
     {% for kid in children %}
-    {% comment %}
-    <a href="{% url "child_detail" pk=kid.name %}">
-        {% endcomment %}
+    <a href="{% url "child_detail" pk=kid.id %}">
         <p>{% trans "Child Nick Name" %}: {{ kid.nick_name }}</p>
-        {% comment %}
     </a>
-    {% endcomment %}
     {% endfor %}
 
 {% else %}
