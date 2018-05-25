@@ -129,22 +129,20 @@ class TestStaffViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_that_url_matches_the_user_username_profile_edit(self):
-        """Check that an authenticated request to profile edit returns 200 status."""
+        """Check that an authenticated user has the right username."""
         self.client.force_login(self.user)
         # response = self.client.get(reverse_lazy('settings/' + self.user.username))
         # response = self.client.get('/profile/settings/{}'.format
         #                            (self.user.username), follow=True)
-        response = self.client.get('/profile/settings/keith')
-        self.client.logout()
+        # response = self.client.get('/profile/settings/keith')
         self.assertEqual(self.user.username, 'Keith')
+        self.client.logout()
 
-    # def test_200_status_on_authenticated_request_to_profile_edit(self):
-    #     """Check that an authenticated request to profile edit returns 200 status."""
-    #     self.client.force_login(self.user)
-    #     # response = self.client.get(reverse_lazy('settings/' + self.user.username))
-    #     # response = self.client.get('/profile/settings/{}'.format
-    #     #                            (self.user.username), follow=True)
-    #     # response = self.client.get('/profile/settings/Keith',)
-    #     response = self.client.get('/profile/settings/?name=Keith', follow=True)
-    #     self.client.logout()
-    #     self.assertEqual(response.status_code, 200)
+    def test_200_status_on_authenticated_request_to_profile_edit(self):
+        """Check that an authenticated request to profile edit returns 200 status."""
+        self.client.force_login(self.user)
+
+        response = self.client.get('/staff/settings/Keith', follow=True)
+        # response = self.client.get(reverse_lazy('/staff/settings/' + self.user.username))
+        self.assertEqual(response.status_code, 200)
+        self.client.logout()
