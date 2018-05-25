@@ -1,73 +1,63 @@
-# from django.test import TestCase, Client, override_settings, RequestFactory
-# from django.core.files.uploadedfile import SimpleUploadedFile
-# from django.urls import reverse_lazy
-# from django.conf import settings
-# from .models import Photo
-# from .forms import PhotoForm, PhotoEditForm
-# from .views import PhotoCreateView, PhotoEditView
-# from users.models import UserProfile
-# import factory
-# import faker
-# import os
+"""Test."""
+from django.test import TestCase
+from .models import Photo
+import factory
+from django.contrib.auth import get_user_model
+import faker
+from django.contrib.auth.models import User
+from model_mommy import mommy
+import tempfile
+from django.urls import reverse_lazy
+from .forms import PhotoForm
 
-
-# fake = faker.Faker()
-
-
-# class UserFactory(factory.django.DjangoModelFactory):
-#     """creates a user for testing"""
-
-#     class Meta:
-#         model = UserProfile
-
-#     username = factory.Faker('user_name')
-#     email = factory.Faker('email')
+fake = faker.Faker()
 
 
 # class PhotoFactory(factory.django.DjangoModelFactory):
-#     """create fake photos for testing"""
-    
+#     """Make photo factory."""
+
 #     class Meta:
+#         """Class for Meta."""
+
 #         model = Photo
 
-#     image = SimpleUploadedFile('test.jpg', b'file_content', content_type='image/jpg')
-#     location = factory.Faker('word')
-#     description = factory.Faker('text')
+#     image = factory.Faker('image_url')
+#     description = factory.Faker('word')
 #     date_uploaded = factory.Faker('date')
 #     date_modified = factory.Faker('date')
 #     date_published = factory.Faker('date')
-#     # published = factory.Faker('random_element', elements=[
-#     #     ('PRIVATE', 'Private'),
-#     #     ('SHARED', 'Shared'),
-#     #     ('PUBLIC', 'Public'),
-#     # ])
+#     published = factory.Faker(
+#         'random_element',
+#         elements=[
+#             ('PRIVATE', 'Private'),
+#             ('SHARED', 'Shared'),
+#             ('PUBLIC', 'Public'),
+#          ]
+#     )
 
 
-# # DO
-# # eliminate unneccessary stuff
-# class PhotoFormsTest(TestCase):
-#     """test photo forms"""
-
-#     @classmethod
-#     def setUp(self):
-#         super(TestCase, self)
-
-#         user = UserProfile(username='testing',
-#                     email='testing@testing.com')
-#         user.save()
-#         self.user = user
-#         self.client = Client()
-
-#         photo = PhotoFactory.build()
-#         photo.user_id = self.user.id
-#         photo.save()
-#         self.photo = photo
-
-#         self.request = RequestFactory()
+# class ImageTests(TestCase):
+#     """Testing Routes."""
 
 #     @classmethod
-#     def tearDown(self):
+#     def setUpClass(cls):
+#         """Define class."""
+#         super().setUpClass()
+
+#     @classmethod
+#     def tearDownClass(cls):
+#         """Tear Down Class."""
 #         User.objects.all().delete()
-#         Photo.objects.all().delete()
+#         super().tearDownClass()
 
-#         super(TestCase, self)
+
+# class ImageViewTests(ImageTests):
+#     """Image view class test."""
+
+#     class ImageFormTests(ImageTests):
+#         """Image form tests class."""
+
+#     def test_init_photo(self):
+#         """Test image form."""
+#         user = list(User.objects.all())[0]
+#         PhotoForm(username=user.username)
