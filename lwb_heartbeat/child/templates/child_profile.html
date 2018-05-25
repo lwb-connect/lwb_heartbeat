@@ -35,6 +35,9 @@
     <button>
         <a href="{% url "childsettings" pk=child.id %}">{% trans "Edit Child Profile" %}</a>
     </button>
+    <button>
+        <a href="{% url "medicalchart" pk=child.id %}">{% trans "View Medical Chart" %}</a>
+    </button>
     {% endif %}
 
   </section>
