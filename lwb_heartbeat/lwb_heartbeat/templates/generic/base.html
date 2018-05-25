@@ -25,22 +25,28 @@
       <ul>
         <li><a href="{% url "home" %}">Home</a></li>
         <li><a href="{% url "about" %}">About Us</a></li>
+        
         {% if not user.is_authenticated%}
-        <li><a href="{% url "auth_login" %}">Signin</a></li>
+          <li><a href="{% url "auth_login" %}">Signin</a></li>
         {% endif %}
+        
         {% if user.is_authenticated %}
-        <li><a href="{% url "auth_logout" %}">Logout</a></li>
-        {% comment %}
-        <li><a href="{% url "photo" %}">Photos</a></li>
-        {% endcomment %}
-        <li><a href="{% url "profile" %}">Profile</a></li>
-        <li><a href="{% url "childlist" %}">List of Children</a></li>
+          {% comment %} <li><a href="{% url "photo" %}">Photos</a></li> {% endcomment %}
+          <li><a href="{% url "profile" %}">Profile</a></li>
+          <li><a href="{% url "childlist" %}">Children</a></li>
         {% endif %}
+        
         {% if user.is_superuser or perms.staff.is_admin %}
-        <li><a href="{% url "stafflist" %}">Staff List</a></li>
-        {% if user.is_superuser %}
-        <li><a href="{% url "admin:index" %}">Admin</a></li>
-        {% endif %}
+          <li><a href="{% url "stafflist" %}">Staff</a></li>
+       
+          {% if user.is_superuser %}
+          <li><a href="{% url "admin:index" %}">Admin</a></li>
+          {% endif %}
+        
+          {% if user.is_authenticated %}
+            <li><a href="{% url "auth_logout" %}">Logout</a></li>
+          {% endif %}
+          
         {% endif %}
         
       </ul>
