@@ -66,8 +66,8 @@ main {
     text-transform: uppercase;
 }
 
-.about-us li {
-
+.about_us li {
+   margin-bottom: 40px;
 }
 
 .about-photo-container {
@@ -79,7 +79,6 @@ main {
     display: inline-block;
     width: 40%;
     margin: 10px 20px;
-    vertical-align: middle;
     text-align: center;
 }
 
