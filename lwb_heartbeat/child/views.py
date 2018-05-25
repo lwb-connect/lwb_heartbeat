@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.conf import settings
 from .forms import ChildEditForm, ChildAddForm
-from .models import Child
+from .models import Child, MedicalUpdate
 from images.models import Photo
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
@@ -27,6 +27,24 @@ class ChildListView(LoginRequiredMixin, ListView):
         """return context data"""
         context = super().get_context_data(**kwargs)
         return context
+
+
+class ChildMedicalUpdateView(LoginRequiredMixin, DetailView):
+    template_name = 'child_medical_veiw.html'
+    model = MedicalUpdate
+    login_url = reverse_lazy('auth_url')
+    context_object_name = 'medicalupdate'
+
+    def get_queryset(self):
+        return MedicalUpdate.objects.filter(child__id=self.kwargs['pk'])
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['child'] = Child.objects.filter(id=self.kwargs['pk']).first()
+        context['medicalupdate'] = self.get_queryset()
+        return context
+# 
+
 
 # OLD VERSION:------------------------------------------------------
 # don't delete until presentation
