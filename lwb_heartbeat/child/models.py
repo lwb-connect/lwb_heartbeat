@@ -135,6 +135,7 @@ class MedicalUpdate(models.Model):
         blank=True,
         null=True,
         on_delete=models.CASCADE,
+        related_name='medical_update'
         )
     date_created = models.DateField(auto_now=True)
     date_edited = models.DateField(auto_now=False)

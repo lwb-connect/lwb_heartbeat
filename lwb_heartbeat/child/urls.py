@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import (
-    ChildDetailView, ChildCreateView, ChildListView, ChildEditView)
+from .views import ChildDetailView, ChildCreateView, ChildListView, ChildEditView, ChildMedicalUpdateView
 
 
 urlpatterns = [
@@ -9,4 +8,5 @@ urlpatterns = [
     path('child/add', ChildCreateView.as_view(), name='child_create'),
     path('childsettings/<int:pk>', ChildEditView.as_view(),
          name='childsettings'),
+    path('medicalchart/<int:pk>', ChildMedicalUpdateView.as_view(), name='medicalchart')
     ]
