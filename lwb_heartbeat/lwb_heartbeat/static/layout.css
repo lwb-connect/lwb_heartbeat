@@ -90,7 +90,41 @@ main {
 }
 
 .home-title {
-    
+  font-family: museo-sans,Arial,Helvetica,sans-serif;
+  text-align: right;
+}
+
+.home-title-bold {
+    font-family: museo-sans,Arial,Helvetica,sans-serif;
+    text-align: right;
+    font-weight: bold;
+}
+
+.hb_heart_img {
+    width: 300px;
+}
+
+.home-container {
+    text-align: center;
+    position: relative;
+    width: 630px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.home-left {
+    float: left;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.home-right {
+    float: right;
+    display: inline-block;
+}
+
+.home-right img {
+    /* margin-top: 85px; */
 }
 
 footer {
@@ -108,4 +142,56 @@ footer {
     line-height: 1.1em;
     text-align: center;
     letter-spacing: 4px;
+}
+
+/* MEDICAL VIEW PAGE */
+
+.med-update-box {
+    border: #6d6e70 solid 4px;
+    /* background-color: rgba(0,0,0,.3); */
+    position: relative;
+    border-radius: 20px;
+    width: 100%;
+    margin: 10px auto;
+}
+
+/* Child View */
+
+.photo-200 {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.profile-photo-container {
+    border: #6d6e70 solid 4px;
+    background-color: #ce38423a;
+    position: relative;
+    border-radius: 20px;
+    /* width: 100%; */
+}
+
+.description {
+    font-weight: bold;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.entry {
+    display: inline-block;
+}
+
+.general-container-outline {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.child-profile-title {
+    text-align: center;
+    margin: 10px;
 }

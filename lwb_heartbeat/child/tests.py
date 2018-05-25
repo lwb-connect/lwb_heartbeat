@@ -219,6 +219,7 @@ class TestChildViews(TestCase):
         self.client.logout()
         self.assertEqual(response.status_code, 200)
 
+
     def test_404_status_on_authenticated_request_to_child_detail(self):
         """Check that an authenticated request to child detail returns 404 status."""
         self.client.force_login(self.user)
@@ -236,11 +237,6 @@ class TestChildViews(TestCase):
     #     # response = self.client.get(reverse_lazy('/staff/settings/' + self.user.username))
     #     self.assertEqual(response.status_code, 200)
     #     self.client.logout()
-
-
-
-
-
 
     # def test_200_status_on_authenticated_request_to_store(self):
     #     """Test 200 status."""

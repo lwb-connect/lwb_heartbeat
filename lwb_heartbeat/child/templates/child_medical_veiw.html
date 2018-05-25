@@ -1,0 +1,35 @@
+{% extends 'generic/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_superuser or perms.staff.is_admin %}
+    <div class="list-view-nav">
+        <button>
+            <a href="{% url "child_detail" pk=child.id %}">{% trans "Return to child profile" %}</a>
+        </button>
+    </div>
+
+   <h2 class="child-profile-title">{{ child.nick_name }}'s Medical Chart</h2>
+    {% for report in medicalupdate %}
+    {% comment %} <h2>{{ report.child.nick_name }}'s Medical Chart</h2> {% endcomment %}
+    
+        <div class="med-update-box">
+            <p>Date Record Posted:</p>{{ report.date_created }}
+            <p>Medical Notes:</p>{{ report.medical_note }}
+        </div>
+    {% endfor %}
+
+
+{% else %}
+    <h2>You are not authorized to view this page</h2>
+{% endif %}
+
+{% comment %} {% if user.is_superuser or perms.staff.is_admin %}
+    <button>
+        <a href="{% url "child_create" %}">{% trans "Add a new child" %}</a>
+    </button>
+{% endif %} {% endcomment %}
+
+{% endblock content %}
