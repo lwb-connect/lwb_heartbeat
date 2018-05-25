@@ -152,40 +152,40 @@ class ChildProfileTests(TestCase):
         test_child = Child.objects.first()
         self.assertIsNotNone(test_child.given_name_sur)
 
-    def test_child_profile_edit_form(self):
-        """Test the profile edit form for a child."""
+    # def test_child_profile_edit_form(self):
+    #     """Test the profile edit form for a child."""
 
-        test_user = User.objects.first()
-        test_child = Child.objects.first()
+    #     test_user = User.objects.first()
+    #     test_child = Child.objects.first()
 
-        # fields = ['currently_in_lwb_care', 'date_entered_lwb_care',
-        #           'date_child_left_lwb_care', 'program_number',
-        #           'nick_name', 'given_name_sur', 'given_name_first', 'DOB',
-        #           'location_country', 'education_program',
-        #           'image', 'description']
+    #     # fields = ['currently_in_lwb_care', 'date_entered_lwb_care',
+    #     #           'date_child_left_lwb_care', 'program_number',
+    #     #           'nick_name', 'given_name_sur', 'given_name_first', 'DOB',
+    #     #           'location_country', 'education_program',
+    #     #           'image', 'description']
 
-        form = ChildEditForm(
-            {'currently_in_lwb_care': test_child.currently_in_lwb_care,
-                'date_entered_lwb_care': test_child.date_entered_lwb_care,
-                'date_child_left_lwb_care': test_child.date_child_left_lwb_care,
-                'program_number': test_child.program_number,
-                'nick_name': test_child.nick_name,
-                'given_name_sur': test_child.given_name_sur,
-                'given_name_first': test_child.given_name_first,
-                'DOB': test_child.DOB,},
-                # username=test_user.username
-                )
+    #     form = ChildEditForm(
+    #         {'currently_in_lwb_care': test_child.currently_in_lwb_care,
+    #             'date_entered_lwb_care': test_child.date_entered_lwb_care,
+    #             'date_child_left_lwb_care': test_child.date_child_left_lwb_care,
+    #             'program_number': test_child.program_number,
+    #             'nick_name': test_child.nick_name,
+    #             'given_name_sur': test_child.given_name_sur,
+    #             'given_name_first': test_child.given_name_first,
+    #             'DOB': test_child.DOB,},
+    #             # username=test_user.username
+    #             )
 
-        # self.assertTrue(form['first_name'].data == 'Jay')
-        # self.assertTrue(form['last_name'].data == 'Adams')
-        self.assertTrue(form['currently_in_lwb_care'].data == test_child.currently_in_lwb_care)
-        self.assertTrue(form['date_entered_lwb_care'].data == test_child.date_entered_lwb_care)
-        self.assertTrue(form['date_child_left_lwb_care'].data == test_child.date_child_left_lwb_care)
-        self.assertTrue(form['program_number'].data == test_child.program_number)
-        self.assertTrue(form['nick_name'].data == test_child.nick_name)
-        self.assertTrue(form['given_name_sur'].data == test_child.given_name_sur)
-        self.assertTrue(form['given_name_first'].data == test_child.given_name_first)
-        self.assertTrue(form['DOB'].data == test_child.DOB)
+    #     # self.assertTrue(form['first_name'].data == 'Jay')
+    #     # self.assertTrue(form['last_name'].data == 'Adams')
+    #     self.assertTrue(form['currently_in_lwb_care'].data == test_child.currently_in_lwb_care)
+    #     self.assertTrue(form['date_entered_lwb_care'].data == test_child.date_entered_lwb_care)
+    #     self.assertTrue(form['date_child_left_lwb_care'].data == test_child.date_child_left_lwb_care)
+    #     self.assertTrue(form['program_number'].data == test_child.program_number)
+    #     self.assertTrue(form['nick_name'].data == test_child.nick_name)
+    #     self.assertTrue(form['given_name_sur'].data == test_child.given_name_sur)
+    #     self.assertTrue(form['given_name_first'].data == test_child.given_name_first)
+    #     self.assertTrue(form['DOB'].data == test_child.DOB)
         # self.assertTrue(form['date_modified'].data == test_child.date_modified)
 
 
@@ -219,17 +219,24 @@ class TestChildViews(TestCase):
         self.client.logout()
         self.assertEqual(response.status_code, 200)
 
-    # def test_200_status_on_authenticated_request_to_child_edit(self):
-    #     """Check that an authenticated request to child edit returns 200 status."""
+
+    def test_404_status_on_authenticated_request_to_child_detail(self):
+        """Check that an authenticated request to child detail returns 404 status."""
+        self.client.force_login(self.user)
+
+        response = self.client.get('/child/1', follow=True)
+        # response = self.client.get(reverse_lazy('/staff/settings/' + self.user.username))
+        self.assertEqual(response.status_code, 404)
+        self.client.logout()
+
+    # def test_200_status_on_authenticated_request_to_child_detail(self):
+    #     """Check that an authenticated request to child detail returns 200 status."""
     #     self.client.force_login(self.user)
 
-    #     response = self.client.get('/child/childsettings/1', follow=True)
+    #     response = self.client.get('/child/child/1', follow=True)
     #     # response = self.client.get(reverse_lazy('/staff/settings/' + self.user.username))
     #     self.assertEqual(response.status_code, 200)
     #     self.client.logout()
-
-
-
 
     # def test_200_status_on_authenticated_request_to_store(self):
     #     """Test 200 status."""

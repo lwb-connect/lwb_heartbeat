@@ -10,26 +10,26 @@ from .forms import PhotoForm, PhotoEditForm
 from django.conf import settings
 
 
-class PhotoView(ListView):
-    """Displays all images from a specified child"""
-    # DO
-    template_name = ''
-    context_object_name = 'photo'
+# class PhotoView(ListView):
+#     """Displays all images from a specified child"""
+#     # DO
+#     template_name = ''
+#     context_object_name = 'photo'
 
-    def get(self, *args, **kwargs):
-        # DO
-        # view tiers here
-        # maybe
-        if not self.request.user.is_authenticated:
-            return redirect('home')
-        return super().get(*args, **kwargs)
+#     def get(self, *args, **kwargs):
+#         # DO
+#         # view tiers here
+#         # maybe
+#         if not self.request.user.is_authenticated:
+#             return redirect('home')
+#         return super().get(*args, **kwargs)
 
-    def get_queryset(self):
-        return Photo.objects.filter(published='PUBLIC')
+#     def get_queryset(self):
+#         return Photo.objects.filter(published='PUBLIC')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         return context
 
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):
