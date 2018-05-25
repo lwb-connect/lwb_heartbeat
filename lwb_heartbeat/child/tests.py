@@ -189,6 +189,38 @@ class ChildProfileTests(TestCase):
         # self.assertTrue(form['date_modified'].data == test_child.date_modified)
 
 
+class TestChildViews(TestCase):
+    """Test child related views work."""
+    @classmethod
+    def setUp(self):
+        user = User(username='Keith',
+                    email='no@no.com')
+        user.save()
+        self.user = user
+        self.client = Client()
+
+    @classmethod
+    def tearDown(self):
+        """Deletes users made for testing purposes."""
+        User.objects.all().delete()
+        super(TestCase, self)
+
+    def test_200_status_on_authenticated_request_to_childlist(self):
+        """Check that an authenticated request to childlist returns 200 status."""
+        self.client.force_login(self.user)
+        response = self.client.get(reverse_lazy('childlist'))
+        self.client.logout()
+        self.assertEqual(response.status_code, 200)
+
+    def test_200_status_on_authenticated_request_to_child_create(self):
+        """Check that an authenticated request to child create returns 200 status."""
+        self.client.force_login(self.user)
+        response = self.client.get(reverse_lazy('child_create'))
+        self.client.logout()
+        self.assertEqual(response.status_code, 200)
+
+
+
 
     # def test_200_status_on_authenticated_request_to_store(self):
     #     """Test 200 status."""
