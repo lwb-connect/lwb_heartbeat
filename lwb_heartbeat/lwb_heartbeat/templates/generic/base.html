@@ -39,15 +39,14 @@
         {% if user.is_superuser or perms.staff.is_admin %}
           <li><a href="{% url "stafflist" %}">Staff</a></li>
        
-          {% if user.is_superuser %}
-          <li><a href="{% url "admin:index" %}">Admin</a></li>
+            {% if user.is_superuser %}
+            <li><a href="{% url "admin:index" %}">Admin</a></li>
+            {% endif %}
           {% endif %}
         
           {% if user.is_authenticated %}
             <li><a href="{% url "auth_logout" %}">Logout</a></li>
           {% endif %}
-          
-        {% endif %}
         
       </ul>
     </nav>
