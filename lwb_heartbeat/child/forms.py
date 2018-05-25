@@ -29,7 +29,8 @@ class ChildEditForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         """Initialization."""
-        # username = kwargs.pop('username')
+        username = kwargs.pop('username')
+
         # # self.fields['child_id'].queryset = Child.objects.filter(child__user__username=username)
         # self.fields['country_name'].initial = Country.objects.get(
         #                                         username=username).country_name
