@@ -20,6 +20,7 @@ node_modules
 .vscode
 .idea/
 hosts
+/lwb_heartbeat/static/
 
 Data.fs*
 *.sublime-project

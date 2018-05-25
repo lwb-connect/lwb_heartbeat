@@ -219,6 +219,15 @@ class TestChildViews(TestCase):
         self.client.logout()
         self.assertEqual(response.status_code, 200)
 
+    # def test_200_status_on_authenticated_request_to_child_edit(self):
+    #     """Check that an authenticated request to child edit returns 200 status."""
+    #     self.client.force_login(self.user)
+
+    #     response = self.client.get('/child/childsettings/1', follow=True)
+    #     # response = self.client.get(reverse_lazy('/staff/settings/' + self.user.username))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.client.logout()
+
 
 
 
