@@ -12,7 +12,7 @@ adjust view permissions later
 
     {% for kid in children %}
     <a href="{% url "child_detail" pk=kid.id %}">
-        <p>{% trans "Child Nick Name" %}: {{ kid.nick_name }}</p>
+        <p>{% trans "Nick Name" %}: {{ kid.nick_name }}</p>
     </a>
     {% endfor %}
 

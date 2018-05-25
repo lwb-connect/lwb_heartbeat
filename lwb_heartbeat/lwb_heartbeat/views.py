@@ -1,11 +1,10 @@
-# from django.views.generic import TemplateView
-# from imager_images.models import Photo
+"""Imports."""
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
 
 
 def home_view(request):
-    """ home view."""
+    """Home view."""
     return render(request, 'generic/home.html', {})
 
 
