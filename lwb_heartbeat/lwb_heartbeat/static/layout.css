@@ -147,9 +147,51 @@ footer {
 /* MEDICAL VIEW PAGE */
 
 .med-update-box {
-    border: #6d6e70 solid 1px;
-    background-color: rgba(0,0,0,.3);
+    border: #6d6e70 solid 4px;
+    /* background-color: rgba(0,0,0,.3); */
     position: relative;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 100%;
+    margin: 10px auto;
+}
+
+/* Child View */
+
+.photo-200 {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.profile-photo-container {
+    border: #6d6e70 solid 4px;
+    background-color: #ce38423a;
+    position: relative;
+    border-radius: 20px;
+    /* width: 100%; */
+}
+
+.description {
+    font-weight: bold;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.entry {
+    display: inline-block;
+}
+
+.general-container-outline {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.child-profile-title {
+    text-align: center;
+    margin: 10px;
 }
