@@ -1,0 +1,21 @@
+[Unit]
+Description=gunicorn daemon for heartbeat
+After=network.target
+
+[Service]
+Environment=DEBUG=
+Environment=DB_NAME={{ db_name }}
+Environment=SECRET_KEY={{ secret_key }}
+Environment=DB_USER={{ db_user }}
+Environment=DB_PASSWORD={{ db_password }}
+Environment=DB_HOST={{ db_host }}
+Environment=ALLOWED_HOSTS={{ server_dns }} localhost
+
+
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/heartbeat/lwb_heartbeat
+ExecStart=/home/ubuntu/ENV/bin/gunicorn --preload --access-logfile - --workers 3 --bind 127.0.0.1:8000 lwb_heartbeat.wsgi
+
+[Install]
+WantedBy=multi-user.target

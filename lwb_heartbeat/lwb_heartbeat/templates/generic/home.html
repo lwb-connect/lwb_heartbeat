@@ -1,0 +1,23 @@
+{% extends 'generic/base.html' %}
+{% load thumbnail %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+{% comment %} <div class="main-container"> {% endcomment %}
+    <div class="home-container">
+        <div class="home-left">
+            <p class="home-title-bold">Heartbeat |</p>
+            <p class="home-title">A small project |</p>
+            <p class="home-title">Making a very real and tangible difference |</p>
+            <p class="home-title">In the lives of vulnerable children |</p>
+            <p class="home-title">Around the world |</p>
+            <p class="home-title-bold">Heartbeat |</p>
+        </div>
+        <div class="home-right">
+            <img src="{% static 'heartbeat_heart.png' %}" class="hb_heart_img">
+        </div>
+    </div>
+{% comment %} </div> {% endcomment %}
+
+{% endblock content %}

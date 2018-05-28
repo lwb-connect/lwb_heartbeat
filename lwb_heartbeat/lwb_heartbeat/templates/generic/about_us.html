@@ -1,0 +1,48 @@
+{% extends 'generic/base.html' %}
+{% load thumbnail %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="about">
+    <ul class="about_us">
+        <li>
+            <div class="about-photo-container">
+                <img src="{% static 'professional_pic-400x400.png' %}" alt="patricia pic">
+            </div>
+            <div class="about-bio">
+                <h2>Patricia Raftery</h2>
+                <p class="paragraph">Patricia likes snacking and coding and weird Canadian snack foods that her sister brings back from Vancouver. She lives in Issaquah and loves hiking with her black lab. She has really been enjoying software development because it lets her snack and code at the same time.</p>
+                <a href="https://github.com/Patricia888">GitHub</a>
+                <a href="https://www.linkedin.com/in/patricia-raftery/">LinkedIn</a>
+            </div>
+        </li>
+
+        <li>
+            <div class="about-photo-container">
+                <img src="{% static 'keith-400x400.jpeg' %}" alt="keith pic">
+            </div>
+            <div class="about-bio">
+                <h2>Keith Eckert</h2>
+                <p class="paragraph">Python developer with a background in entrepreneurship and e-commerce web development. Passionate learner who loves to problem solve. Strong professional skilled in Software Development, Web Development, Business, Customer Service, Sales, and Retail. In his free time he advocates for adoption, orphan care and foster care.</p>
+                <a href="https://github.com/keitheck">GitHub</a>
+                <a href="https://www.linkedin.com/in/keith-eckert/">LinkedIn</a>
+            </div>
+        </li>
+
+        <li>
+            <div class="about-photo-container">
+                <img src="{% static 'leather-400x400.jpeg' %}" alt="jay pic">
+            </div>
+            <div class="about-bio">
+                <h2>Jay Adams</h2>
+                <p class="paragraph">Jay likes taking the time to solve a problems that  maybe others wouldn't solve. And in doing so, maybe make small differences in peoples lives that they wouldn't really notice, but would incorporate and take for granted.  He sees that as a worthy legacy. A way to leave something behind at the end of the trip.  </p>
+                <a href="https://github.com/jayadams011">GitHub</a>
+                <a href="linkedin.com/in/jay-adams-developer">LinkedIn</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+{% endblock content %}

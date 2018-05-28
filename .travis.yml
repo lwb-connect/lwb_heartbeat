@@ -1,0 +1,24 @@
+language: python
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "create database heartbeat_test;" -U postgres
+  - pip install coveralls
+
+env:
+  - DB_NAME=heartbeat_test DB_USER=postgres DB_HOST='127.0.0.1' SECRET_KEY='supersecret' DEBUG='True'
+
+
+script:
+  - python lwb_heartbeat/manage.py migrate
+  - coverage run lwb_heartbeat/manage.py test lwb_heartbeat
+  - coveralls
+
+
+  
+
+cache: pip

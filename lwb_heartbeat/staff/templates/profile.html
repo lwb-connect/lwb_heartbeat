@@ -1,0 +1,42 @@
+{% extends "generic/base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="profile-container container">
+
+  <h2>You're viewing the profile for {{ profile.user.username }}</h2>
+  
+  {% comment %}
+  <p>{% trans "Last Login" %}: {{ profile.user.last_login }}</p>
+  <p>{% trans "Staff Since" %}: {{ profile.user.date_joined }}</p>
+  {% endcomment %}
+
+  <section class="profile-info">
+    <h2>Profile Information</h2>
+    <p>{% trans "Name:" %} {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+    <p>{% trans "Bio:" %} {{ profile.about_you }}</p>
+    <p>{% trans "Country of Residence:" %} {{ profile.country_of_residence }}</p>
+    <p>{% trans "City of residence:" %} {{ profile.city_of_residence }}</p>
+    <p>{% trans "Email:" %} {{ profile.user.email }}</p>
+    <p>{% trans "Phone:" %} {{ profile.phone }}</p>
+    <p>{% trans "Location:" %} {{ profile.location }}</p>
+    <p>{% trans "Language Spoken Other:" %} {{ profile.user_language_spoken_other }}</p>
+    <p>{% trans "Language Spoken Written:" %} {{ profile.user_language_written }}</p>
+    <p>{% trans "Language Spoken Written Other:" %} {{ profile.user_language_written_other }}</p>
+    <p>{% trans "Role:" %} {{ profile.role }}</p>
+    {% if profile.user.username == user.username %}
+    
+    <button>
+        <a href="{% url "settings" username=user.username %}">{% trans "Edit Profile" %}</a>
+    </button>
+    
+    {% endif %}
+  </section>
+
+</section>
+{% else %}
+<h1>{% trans "Please log into the site" %}</h1>
+{% endif %}
+{% endblock content %}

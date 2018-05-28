@@ -1,0 +1,196 @@
+header {
+    background-color: #ce3843;
+    list-style: none;
+    width: 100vw;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+nav {
+    /* height: 50px; */
+    /* display: inline-block; */
+    /* padding-top: 10px; */
+    width: 86vw;
+    margin: 0 auto 0 auto;
+    /* flex: 1 0 auto; */
+    background-color: #ce3843;
+    font-family: museo-sans,Arial,Helvetica,sans-serif;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+
+    
+}
+
+nav li {
+    display: inline-block;
+    background-color: #ce3843; 
+    text-decoration: none;
+    color: #fffaf1;
+    margin: auto 16px;
+    font-size: 16px;
+}
+
+html {
+    height: 100%;
+}
+  
+body {
+    background-color: #fffaf1;  
+    background-size: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}  
+
+main {
+    width: 86vw;
+    margin: 0 auto;
+    flex: 1 0 auto;
+}
+
+.logo-container {
+    width: 90%;
+    margin: 8px auto 20px auto;
+    position: relative;
+    overflow: auto;
+}
+
+.hb_logo_img {
+    width: 300px;
+    float: right;
+}
+
+.welcome-message {
+    /* font-family: museo-sans,Arial,Helvetica,sans-serif; */
+    text-transform: uppercase;
+}
+
+.about_us li {
+   margin-bottom: 40px;
+}
+
+.about-photo-container {
+    display: inline-block;
+}
+
+
+.about-bio {
+    display: inline-block;
+    width: 40%;
+    margin: 10px 20px;
+    text-align: center;
+}
+
+.about img {
+    height: 250px;
+    width: 250px;
+    border-radius: 20px;
+}
+
+.home-title {
+  font-family: museo-sans,Arial,Helvetica,sans-serif;
+  text-align: right;
+}
+
+.home-title-bold {
+    font-family: museo-sans,Arial,Helvetica,sans-serif;
+    text-align: right;
+    font-weight: bold;
+}
+
+.hb_heart_img {
+    width: 300px;
+}
+
+.home-container {
+    text-align: center;
+    position: relative;
+    width: 630px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.home-left {
+    float: left;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.home-right {
+    float: right;
+    display: inline-block;
+}
+
+.home-right img {
+    /* margin-top: 85px; */
+}
+
+footer {
+    width: 100%;
+    height: 20px;
+    padding: 10px 20px 10px 20px;
+    background-color: $header-background;
+    color: $white;
+    margin-top: 30px;
+}
+
+.tagline {
+    font-family: $main-font;
+    font-size: 16px;
+    line-height: 1.1em;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+/* MEDICAL VIEW PAGE */
+
+.med-update-box {
+    border: #6d6e70 solid 4px;
+    /* background-color: rgba(0,0,0,.3); */
+    position: relative;
+    border-radius: 20px;
+    width: 100%;
+    margin: 10px auto;
+}
+
+/* Child View */
+
+.photo-200 {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.profile-photo-container {
+    border: #6d6e70 solid 4px;
+    background-color: #ce38423a;
+    position: relative;
+    border-radius: 20px;
+    /* width: 100%; */
+}
+
+.description {
+    font-weight: bold;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.entry {
+    display: inline-block;
+}
+
+.general-container-outline {
+    margin: 10px;
+    border-radius: 20px;
+    border-color: #6d6e70;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.child-profile-title {
+    text-align: center;
+    margin: 10px;
+}

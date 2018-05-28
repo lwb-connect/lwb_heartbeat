@@ -1,0 +1,65 @@
+/* * {
+    
+    outline: orange dotted 1px;
+} */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    font-family: museo,Arial,Helvetica,sans-serif;
+    color: #6d6e70;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    font-family: museo,Arial,Helvetica,sans-serif;
+    font-weight: 500;
+    line-height: 1.125;
+}
+
+ul {
+    list-style-type: none;
+  }
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+
+h4 {
+
+}
+
+button {
+    background-color: #ce3843;
+    border-color: #ce3843;
+    color: #fff;
+    margin-bottom: 0;
+    background-image: none;
+    border: 2px solid transparent;
+    box-shadow: none;
+    font: 700 16px/1.5 museo,Arial,Helvetica,sans-serif;
+    text-align: center;
+    text-transform: none;
+    text-shadow: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    display: inline-block;
+    cursor: pointer;
+    touch-action: manipulation;
+    height: 50px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1.5;
+}

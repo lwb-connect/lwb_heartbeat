@@ -1,0 +1,119 @@
+---
+- hosts: us-west-2
+  remote_user: ubuntu
+  environment:
+    SECRET_KEY: "{{ secret_key }}"
+    DB_NAME: "{{ db_name }}"
+    DB_USER: "{{ db_user }}"
+    DB_PASSWORD: "{{ db_password }}"
+    DB_HOST: "{{ db_host }}"
+    ALLOWED_HOSTS: "{{ server_dns }}"
+  tasks:
+    - name: Update the base Ubuntu image
+      apt: update_cache=yes
+      become: yes
+      become_method: sudo
+
+    - name: Install build dependencies
+      apt: name={{ item }} state=latest update_cache=yes
+      become: yes
+      become_method: sudo
+      with_items:
+        - python-dev
+        - python3-venv
+        - python3-pip
+        - build-essential
+        - postgresql-client
+        - nginx
+
+    # Clone your project up in this area
+    - name: Clone the repo
+      git:
+        clone: yes
+        repo: https://github.com/lwb-connect/lwb_heartbeat.git
+        dest: /home/ubuntu/heartbeat
+
+    - name: Create a virtual env for the project to run in
+      command: python3 -m venv /home/ubuntu/ENV
+      become: yes
+      become_method: sudo
+
+    - name: Install Gunicorn into Virtual Environment
+      pip: virtualenv=/home/ubuntu/ENV name=gunicorn
+      become: yes
+      become_method: sudo
+
+    # fixed
+    - name: Install heartbeat to the virtualenv
+      pip: virtualenv=/home/ubuntu/ENV requirements=/home/ubuntu/heartbeat/requirements.txt
+      become: yes
+      become_method: sudo
+
+    - name: Register the backup default config for nginx
+      stat: path=/etc/nginx/sites-available/default.bak
+      register: default_stat
+
+    - name: mv and rename default nginx config
+      command: mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+      become: yes
+      become_method: sudo
+      when: not default_stat.stat.exists
+
+    - name: Create a new Nginx config
+      template:
+        src: templates/nginx_config
+        dest: /etc/nginx/sites-available/default
+      become: yes
+      become_method: sudo
+
+    - name: Create a new gunicorn.service
+      template:
+        src: templates/gunicorn.service
+        dest: /etc/systemd/system/
+      become: yes
+      become_method: sudo
+
+    # migrate
+    # Don't forget to collectstatic and migrate if necessary
+    - name: Migrate the database
+      django_manage:
+        command: migrate
+        app_path: /home/ubuntu/heartbeat/lwb_heartbeat
+        virtualenv: /home/ubuntu/ENV
+
+    - name: Collect static
+      django_manage:
+        command: collectstatic
+        app_path: /home/ubuntu/heartbeat/lwb_heartbeat
+        virtualenv: /home/ubuntu/ENV
+
+    # Don't forget to start/restart your services
+    - name: Enable Nginx
+      command: systemctl enable nginx
+      become: yes
+      become_method: sudo
+
+    - name: Enable Gunicorn
+      command: systemctl enable gunicorn
+      become: yes
+      become_method: sudo
+
+    - name: Stop Nginx
+      command: systemctl stop nginx
+      become: yes
+      become_method: sudo
+
+    - name: Stop Gunicorn
+      command: systemctl stop gunicorn
+      become: yes
+      become_method: sudo
+
+    - name: Start Nginx
+      command: systemctl start nginx
+      become: yes
+      become_method: sudo
+
+    - name: Start Gunicorn
+      command: systemctl start gunicorn
+      become: yes
+      become_method: sudo

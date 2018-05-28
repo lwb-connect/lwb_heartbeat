@@ -1,0 +1,60 @@
+{% extends "generic/base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="child-container container">
+
+  
+  <section class="profile-info">
+    <h2>Child Profile Information</h2>
+    <div class="profile-photo-container">
+      <h2 class="child-profile-title">You're viewing the profile for {{ child.nick_name }}</h2>
+    {% thumbnail child.photos.first.image "x200" as im %}
+      <img src="{{ im.url }}" class="photo-200">
+    {% endthumbnail %}
+      <div>
+        <p class="description">{% trans "Photo Description:" %}</p> <p class="entry">{{ child.photos.first.description }}</p>
+      </div>  
+    </div>
+    <div class="general-container-outline">
+      <p class="description">{% trans "Currently in lwb care:" %}</p> <p class="entry">{{ child.currently_in_lwb_care }}</p>
+      <p class="description">{% trans "Date entered lwb care:" %}</p> <p class="entry">{{ child.date_entered_lwb_care }}</p>
+      <p class="description">{% trans "Date left lwb care:" %}</p> <p class="entry">{{ child.date_left_lwb_care }}</p>
+      <p class="description">{% trans "Program Number:" %}</p> <p class="entry">{{ child.program_number }}</p>
+    </div>
+    <div class="general-container-outline">
+      <p class="description">{% trans "Nick Name:" %}</p> <p class="entry">{{ child.nick_name }}</p>
+      <p class="description">{% trans "Given Name Sur:" %}</p> <p class="entry">{{ child.given_name_sur }}</p>
+      <p class="description">{% trans "Given Name First:" %}</p> <p class="entry">{{ child.given_name_first }}</p>
+    </div>
+    <div class="general-container-outline">
+      <p class="description">{% trans "Date of Birth:" %}</p> <p class="entry">{{ child.DOB }}</p>
+      <p class="description">{% trans "Date Last File Modified:" %}</p> <p class="entry">{{ child.date_modified }}</p>
+    </div>
+    <div class="general-container-outline"> 
+      <p class="description">{% trans "Country:" %}</p> <p class="entry">{{ child.location_country }}</p>
+      <p class="description">{% trans "Education Program:" %}</p> <p class="entry">{{ child.education_program }}</p>
+    </div>   
+    <ul>
+    {% for i in growth %}
+    <li>{% trans "BMI" %} {{ i }}</li>
+    {% endfor %}
+    </ul>
+    {% if user.is_superuser or perms.staff.is_admin %}
+    <button>
+        <a href="{% url "childsettings" pk=child.id %}">{% trans "Edit Child Profile" %}</a>
+    </button>
+    <button>
+        <a href="{% url "medicalchart" pk=child.id %}">{% trans "View Medical Chart" %}</a>
+    </button>
+    {% endif %}
+
+  </section>
+
+</section>
+{% else %}
+<h1>{% trans "Please log into the site" %}</h1>
+{% endif %}
+{% endblock content %}

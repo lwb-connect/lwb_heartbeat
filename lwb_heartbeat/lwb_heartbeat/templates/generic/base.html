@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.typekit.net/pen0mae.css">
+  <link href="https://fonts.googleapis.com/css?family=Khmer" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "normalize.css" %}">
+  <link rel="stylesheet" href="{% static "base.css" %}">
+  <link rel="stylesheet" href="{% static "layout.css" %}">
+  <link rel="stylesheet" href="{% static "modules.css" %}">
+  
+ 
+
+  <title>Heartbeat</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url "home" %}">Home</a></li>
+        <li><a href="{% url "about" %}">About Us</a></li>
+        
+        {% if not user.is_authenticated%}
+          <li><a href="{% url "auth_login" %}">Signin</a></li>
+        {% endif %}
+        
+        {% if user.is_authenticated %}
+          {% comment %} <li><a href="{% url "photo" %}">Photos</a></li> {% endcomment %}
+          <li><a href="{% url "profile" %}">Profile</a></li>
+          <li><a href="{% url "childlist" %}">Children</a></li>
+        {% endif %}
+        
+        {% if user.is_superuser or perms.staff.is_admin %}
+          <li><a href="{% url "stafflist" %}">Staff</a></li>
+       
+            {% if user.is_superuser %}
+            <li><a href="{% url "admin:index" %}">Admin</a></li>
+            {% endif %}
+          {% endif %}
+        
+          {% if user.is_authenticated %}
+            <li><a href="{% url "auth_logout" %}">Logout</a></li>
+          {% endif %}
+        
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="logo-container">
+      <div class="logo">
+        <img src="{% static 'lwb_heartbeat_logo.png' %}" class="hb_logo_img" alt="Heartbeat">
+      </div>
+      {% if user.is_authenticated %}
+      <p class="welcome-message">Welcome, {{user.username}}</p>
+      {% endif %}
+   </div>
+    {% block content %}
+    <h3>No Content</h3>
+    {% endblock content%}
+        
+  </main>
+
+  <footer>
+  </footer>
+</body>
+</html>

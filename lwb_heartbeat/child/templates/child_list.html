@@ -1,0 +1,29 @@
+{% extends 'generic/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+{% comment %}
+adjust view permissions later
+{% endcomment %}
+{% if user.is_superuser or perms.staff.is_admin %}
+
+    <h2>List of all children:</h2>
+
+    {% for kid in children %}
+    <a href="{% url "child_detail" pk=kid.id %}">
+        <p>{% trans "Nick Name" %}: {{ kid.nick_name }}</p>
+    </a>
+    {% endfor %}
+
+{% else %}
+    <h2>You are not authorized to view this page</h2>
+{% endif %}
+
+{% if user.is_superuser or perms.staff.is_admin %}
+    <button>
+        <a href="{% url "child_create" %}">{% trans "Add a new child" %}</a>
+    </button>
+{% endif %}
+
+{% endblock content %}
